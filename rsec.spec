@@ -1,6 +1,6 @@
 %define name	rsec
 %define version	0.50
-%define release	1sls
+%define release	2sls
 
 Summary:	Security Reporting tool for OpenSLS
 Name:		%{name}
@@ -76,5 +76,8 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 %ghost %attr(0640,root,root) /var/log/security.log
 
 %changelog
+* Fri Apr 23 2004 Vincent Danen <vdanen@opensls.org> 0.50-2sls
+- make urpmicheck.sh a bit more robust
+
 * Wed Mar 10 2004 Vincent Danen <vdanen@opensls.org> 0.50-1sls
 - first OpenSLS package based on msec-0.42-1mdk
