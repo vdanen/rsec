@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /usr/share/rsec
+./promisc_check.sh
