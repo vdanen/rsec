@@ -1,6 +1,6 @@
 %define name	rsec
-%define version	0.50
-%define release	4avx
+%define version	0.51
+%define release	1avx
 
 Summary:	Security Reporting tool for Annvix
 Name:		%{name}
@@ -31,7 +31,7 @@ user to correct.
 %setup -q
 
 %build
-make CFLAGS="$RPM_OPT_FLAGS"
+make CFLAGS="%{optflags}"
 
 %install
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
@@ -76,6 +76,9 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 %ghost %attr(0640,root,root) /var/log/security.log
 
 %changelog
+* Sun Feb 13 2005 Vincent Danen <vdanen@annvix.org> 0.51-1avx
+- 0.51: new option to exclude certain directories from the world-writeable file check
+
 * Wed Jul 07 2004 Vincent Danen <vdanen@annvix.org> 0.50-4avx
 - Requires: mailx (for /bin/mail)
 

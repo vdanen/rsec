@@ -1,4 +1,4 @@
-.TH rsec 3 "10 Mar 2004" "Annvix" "Annvix"
+.TH rsec 3 "23 Feb 2005" "Annvix" "Annvix"
 .SH NAME
 rsec - Annvix security reporting tool
 .SH DESCRIPTION
@@ -41,6 +41,13 @@ Enables rsec's checking for new sgid files installed on the system.
 .TP
 \fBCHECK_WRITABLE=[yes|no]\fR
 Enables rsec's checking for files that are world-writeable.
+.TP
+\fBWRITABLE_EXCLUDE="[dir1 dir2]"\fR
+Exclude certain directories (and their sub-directories) from being included
+in the world-writeable file report (this is useful for things like /dev directories
+inside a chroot, etc.).  Only one statement is permitted, multiple directories can
+be included in the statement, separated by a space.  If specifying more than one
+directory, they must be surrounded by quotes.
 .TP
 \fBRPM_CHECK=[yes|no]\fR
 Enables rsec's checking for newly installed or removed RPM packages.

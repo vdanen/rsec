@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # originally based on msec from Mandrakesoft
@@ -125,6 +126,14 @@ fi
 
 if [[ -f ${WRITABLE_TODAY} ]]; then
     sort < ${WRITABLE_TODAY} | egrep -v '^(/var)?/tmp$' > ${WRITABLE_TODAY}.tmp
+    # do exclusions
+    if [ -n "$WRITABLE_EXCLUDE" ]; then
+        for i in $WRITABLE_EXCLUDE; do
+            test -f ${WRITABLE_TODAY}.tmp.1 && mv ${WRITABLE_TODAY}.tmp.1 ${WRITABLE_TODAY}.tmp
+            cat ${WRITABLE_TODAY}.tmp | egrep -v "^$i" >${WRITABLE_TODAY}.tmp.1
+        done
+        mv -f ${WRITABLE_TODAY}.tmp.1 ${WRITABLE_TODAY}.tmp
+    fi
     mv -f ${WRITABLE_TODAY}.tmp ${WRITABLE_TODAY}    
 fi
 
