@@ -251,8 +251,9 @@ fi
 if [[ ${CHKROOTKIT_CHECK} == yes ]]; then
 
     if [[ -s ${CHKROOTKIT_TODAY} ]]; then
-	printf "\nChkrootkit report:\n" >> ${SECURITY}
-	cat ${CHKROOTKIT_TODAY} >> ${SECURITY}
+	printf "\nChkrootkit report shortlist:\n" >> ${SECURITY}
+	cat ${CHKROOTKIT_TODAY_SUMM} >> ${SECURITY}
+	printf "\nSee ${CHKROOTKIT_TODAY} for a full scan report\n" >> ${SECURITY}
     fi
 fi
 

@@ -56,6 +56,7 @@ export RPM_QA_TODAY="/var/log/security/rpm-qa.today"
 RPM_QA_YESTERDAY="/var/log/security/rpm-qa.yesterday"
 RPM_QA_DIFF="/var/log/security/rpm-qa.diff"
 export CHKROOTKIT_TODAY="/var/log/security/chkrootkit.today"
+export CHKROOTKIT_TODAY_SUMM="/var/log/security/chkrootkit.summ"
 CHKROOTKIT_YESTERDAY="/var/log/security/chkrootkit.yesterday"
 
 # Modified filters coming from debian security scripts.
@@ -153,6 +154,7 @@ fi
 if [[ ${CHKROOTKIT_CHECK} == yes ]]; then
     if [ -x /usr/sbin/chkrootkit ]; then
 	/usr/sbin/chkrootkit > ${CHKROOTKIT_TODAY}
+	/usr/sbin/chkrootkit -q > ${CHKROOTKIT_TODAY_SUMM}
     fi
 fi
 
