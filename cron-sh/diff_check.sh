@@ -3,10 +3,10 @@
 # Written by Vandoorselaere Yoann, <yoann@mandrakesoft.com>
 #
 
-if [[ -f /etc/security/reports.conf ]]; then
-    . /etc/security/reports.conf
+if [[ -f /etc/security/rsec.conf ]]; then
+    . /etc/security/rsec.conf
 else
-    echo "/etc/security/reports.conf doesn't exist."
+    echo "/etc/security/rsec.conf doesn't exist."
     exit 1
 fi
 
@@ -154,30 +154,6 @@ if [[ ${RPM_CHECK} == yes ]]; then
 	    done >> ${TMP}
 	fi
     fi
-    if [[ -f ${RPM_VA_YESTERDAY} ]]; then
-	diff -u ${RPM_VA_YESTERDAY} ${RPM_VA_TODAY} > ${RPM_VA_DIFF}
-	if [ -s ${RPM_VA_DIFF} ]; then
-	    printf "\nSecurity Warning: These files belonging to packages have changed of status on the system :\n" >> ${TMP}
-	    grep '^+' ${RPM_VA_DIFF} | grep -vw "^+++ " | sed 's|^.||' | while read file; do
-		printf "\t\t-     Newly modified : ${file}\n"
-	    done >> ${TMP}
-	    grep '^-' ${RPM_VA_DIFF} | grep -vw "^--- " | sed 's|^.||' | while read file; do
-		printf "\t\t- No longer modified : ${file}\n"
-	    done >> ${TMP}
-	fi
-    fi
-    if [[ -f ${RPM_VA_CONFIG_YESTERDAY} ]]; then
-	diff -u ${RPM_VA_CONFIG_YESTERDAY} ${RPM_VA_CONFIG_TODAY} > ${RPM_VA_CONFIG_DIFF}
-	if [ -s ${RPM_VA_CONFIG_DIFF} ]; then
-	    printf "\nSecurity Warning: These config files belonging to packages have changed of status on the system :\n" >> ${TMP}
-	    grep '^+' ${RPM_VA_CONFIG_DIFF} | grep -vw "^+++ " | sed 's|^.||' | while read file; do
-		printf "\t\t-     Newly modified : ${file}\n"
-	    done >> ${TMP}
-	    grep '^-' ${RPM_VA_CONFIG_DIFF} | grep -vw "^--- " | sed 's|^.||' | while read file; do
-		printf "\t\t- No longer modified : ${file}\n"
-	    done >> ${TMP}
-	fi
-    fi
 fi
 
 ######## Report ######
@@ -192,7 +168,7 @@ if [[ -s ${TMP} ]]; then
     cat ${TMP} >> ${SECURITY_LOG}
 fi
 
-Maillog "[reporter] *** Diff Check on ${hostname}, ${date} ***" "${TMP}"
+Maillog "[rsec] *** Diff Check on ${hostname}, ${date} ***" "${TMP}"
 
 if [[ -f ${TMP} ]]; then
 	rm -f ${TMP}

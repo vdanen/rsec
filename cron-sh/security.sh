@@ -2,7 +2,7 @@
 
 # originally based on msec from Mandrakesoft
 
-LCK=/var/run/reporter.pid
+LCK=/var/run/rsec.pid
 
 function cleanup() {
     rm -f $LCK
@@ -20,12 +20,12 @@ echo -n $$ > $LCK
 
 trap cleanup 0
 
-if [[ ! -f /etc/security/reports.conf ]]; then
-    echo "Can't access /etc/security/reports.conf."
+if [[ ! -f /etc/security/rsec.conf ]]; then
+    echo "Can't access /etc/security/rsec.conf."
     exit 1
 fi
 
-. /etc/security/reports.conf
+. /etc/security/rsec.conf
 
 umask ${UMASK_ROOT=077}
 
@@ -52,12 +52,6 @@ UNOWNED_USER_DIFF="/var/log/security/unowned_user.diff"
 export UNOWNED_GROUP_TODAY="/var/log/security/unowned_group.today"
 UNOWNED_GROUP_YESTERDAY="/var/log/security/unowned_group.yesterday"
 UNOWNED_GROUP_DIFF="/var/log/security/unowned_group.diff"
-export RPM_VA_TODAY="/var/log/security/rpm-va.today"
-RPM_VA_YESTERDAY="/var/log/security/rpm-va.yesterday"
-RPM_VA_DIFF="/var/log/security/rpm-va.diff"
-export RPM_VA_CONFIG_TODAY="/var/log/security/rpm-va-config.today"
-RPM_VA_CONFIG_YESTERDAY="/var/log/security/rpm-va-config.yesterday"
-RPM_VA_CONFIG_DIFF="/var/log/security/rpm-va-config.diff"
 export RPM_QA_TODAY="/var/log/security/rpm-qa.today"
 RPM_QA_YESTERDAY="/var/log/security/rpm-qa.yesterday"
 RPM_QA_DIFF="/var/log/security/rpm-qa.diff"
@@ -105,14 +99,6 @@ if [[ -f ${SUID_MD5_TODAY} ]]; then
     mv ${SUID_MD5_TODAY} ${SUID_MD5_YESTERDAY};
 fi
 
-if [[ -f ${RPM_VA_TODAY} ]]; then
-    mv -f ${RPM_VA_TODAY} ${RPM_VA_YESTERDAY}
-fi
-
-if [[ -f ${RPM_VA_CONFIG_TODAY} ]]; then
-    mv -f ${RPM_VA_CONFIG_TODAY} ${RPM_VA_CONFIG_YESTERDAY}
-fi
-
 if [[ -f ${RPM_QA_TODAY} ]]; then
     mv -f ${RPM_QA_TODAY} ${RPM_QA_YESTERDAY}
 fi
@@ -124,7 +110,7 @@ fi
 netstat -pvlA inet 2> /dev/null > ${OPEN_PORT_TODAY};
 
 # Hard disk related file check; the less priority the better...
-nice --adjustment=+19 /usr/bin/msec_find ${DIR}
+nice --adjustment=+19 /usr/bin/rsec_find ${DIR}
 
 if [[ -f ${SUID_ROOT_TODAY} ]]; then
     sort < ${SUID_ROOT_TODAY} > ${SUID_ROOT_TODAY}.tmp
@@ -225,6 +211,6 @@ EOF
 
 ##################
 
-. /usr/share/reporter/diff_check.sh
-. /usr/share/reporter/security_check.sh
+. /usr/share/rsec/diff_check.sh
+. /usr/share/rsec/security_check.sh
 

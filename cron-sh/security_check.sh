@@ -4,10 +4,10 @@
 # Written by Vandoorselaere Yoann, <yoann@mandrakesoft.com>
 #
 
-if [[ -f /etc/security/reporter.conf ]]; then
-    . /etc/security/reporter.conf
+if [[ -f /etc/security/rsec.conf ]]; then
+    . /etc/security/rsec.conf
 else
-    echo "/etc/security/reporter.conf don't exist."
+    echo "/etc/security/rsec.conf don't exist."
     exit 1
 fi
 
@@ -247,24 +247,6 @@ if [[ ${CHECK_OPEN_PORT} == yes ]]; then
 fi
 
 
-### rpm database checks
-if [[ ${RPM_CHECK} == yes ]]; then
-
-    if [[ -s ${RPM_VA_TODAY} ]]; then
-	printf "\nSecurity Warning: These files belonging to packages are modified on the system :\n" >> ${SECURITY}
-	cat ${RPM_VA_TODAY} | while read f; do
-	    printf "\t\t- $f\n"
-        done >> ${SECURITY}
-    fi
-
-    if [[ -s ${RPM_VA_CONFIG_TODAY} ]]; then
-	printf "\nSecurity Warning: These config files belonging to packages are modified on the system :\n" >> ${SECURITY}
-	cat ${RPM_VA_CONFIG_TODAY} | while read f; do
-	    printf "\t\t- $f\n"
-        done >> ${SECURITY}
-    fi
-fi
-
 ### chkrootkit checks
 if [[ ${CHKROOTKIT_CHECK} == yes ]]; then
 
@@ -285,7 +267,7 @@ if [[ -s ${SECURITY} ]]; then
     cat ${SECURITY} >> ${SECURITY_LOG}
     cat ${INFOS} >> ${SECURITY_LOG}
 
-    Maillog "[reporter] *** Security Check on ${hostname}, ${date} ***" "${SECURITY} ${INFOS}"
+    Maillog "[rsec] *** Security Check on ${hostname}, ${date} ***" "${SECURITY} ${INFOS}"
 fi
 
 if [[ -f ${SECURITY} ]]; then

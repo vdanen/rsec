@@ -27,10 +27,10 @@ LogPromisc() {
 
 }
     
-if [[ -f /etc/security/reporter.conf ]]; then
-    . /etc/security/reporter.conf
+if [[ -f /etc/security/rsec.conf ]]; then
+    . /etc/security/rsec.conf
 else
-    echo "/etc/security/reporter.conf doesn't exist."
+    echo "/etc/security/rsec.conf doesn't exist."
     exit 1
 fi
 
