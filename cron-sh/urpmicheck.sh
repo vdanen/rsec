@@ -2,7 +2,7 @@
 #
 # Update urpmi medium and report on any newly found packages
 #
-# Written by Vincent Danen <vdanen@opensls.org>
+# Written by Vincent Danen <vdanen@annvix.org>
 
 if [[ -f /etc/security/rsec.conf ]]; then
     . /etc/security/rsec.conf
@@ -26,7 +26,7 @@ do
     LIST=`urpmq --auto-select --media $i`
     if [ "$LIST" != "" ]; then
         if [ "$HEAD" -eq 0 ]; then
-            printf "\nOpenSLS package updates monitor\n\n" >> $TMP
+            printf "\nAnnvix package updates monitor\n\n" >> $TMP
             printf "Check performed on $HOST on $DATE\n\n" >> $TMP
             printf "The following updates are available for your system.  To install these\n" >> $TMP
             printf "updates, please execute 'urpmi --auto-select' on your system.\n\n" >> $TMP

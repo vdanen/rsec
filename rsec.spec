@@ -1,25 +1,25 @@
 %define name	rsec
 %define version	0.50
-%define release	2sls
+%define release	3avx
 
-Summary:	Security Reporting tool for OpenSLS
+Summary:	Security Reporting tool for Annvix
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 License:	GPL
 Group:		System/Base
-URL:		http://opensls.org/cgi-bin/viewcvs.cgi/tools/rsec/
+URL:		http://annvix.org/cgi-bin/viewcvs.cgi/tools/rsec/
 Source0:	%{name}-%{version}.tar.bz2
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
 
-Requires:	/bin/bash /bin/touch perl-base diffutils /usr/bin/chage gawk
+Requires:	bash coreutils perl-base diffutils shadow-utils gawk
 Requires:	setup >= 2.2.0-21mdk, coreutils, iproute2
 PreReq:		rpm-helper >= 0.4
 Conflicts:	passwd < 0.67, msec
 
 %description
-The OpenSLS Security Reporting tool (rsec) is largely based on the
+The Annvix Security Reporting tool (rsec) is largely based on the
 Mandrakelinux msec program.  rsec produces the same reports as msec, but
 does not manage permission issues or system configuration changes.  It is
 nothing more than a reporting tool to advise you of changes to your system
@@ -76,6 +76,10 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 %ghost %attr(0640,root,root) /var/log/security.log
 
 %changelog
+* Mon Jun 21 2004 Vincent Danen <vdanen@annvix.org> 0.50-3avx
+- Requires: packages, not files
+- Annvix build
+
 * Fri Apr 23 2004 Vincent Danen <vdanen@opensls.org> 0.50-2sls
 - make urpmicheck.sh a bit more robust
 
