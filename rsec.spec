@@ -67,7 +67,7 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 %dir %_datadir/rsec
 %{_datadir}/rsec/*
 %{_mandir}/man3/rsec.3*
-%dir /var/log/security
+%dir %attr(0750,root,root) /var/log/security
 %config(noreplace) %{_sysconfdir}/security/rsec.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/rsec
 %config(noreplace) %{_sysconfdir}/cron.daily/rsec
