@@ -1,3 +1,12 @@
+2004-06-21 19:26  Vincent Danen <vdanen@opensls.org>
+
+	* AUTHORS, rsec.3, rsec.spec, cron-sh/urpmicheck.sh: Annvix changes
+
+2004-05-24 11:27  Vincent Danen <vdanen@opensls.org>
+
+	* cron-sh/: security.sh, security_check.sh: make chkrootkit check a
+	  little less verbose for email messages
+
 2004-04-23 20:54  Vincent Danen <vdanen@opensls.org>
 
 	* Makefile: fix cvs export
