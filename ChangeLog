@@ -1,3 +1,7 @@
+2004-03-11 10:38  Vincent Danen <vdanen@opensls.org>
+
+	* cron-sh/security.sh: remove VA checks
+
 2004-03-11 10:31  Vincent Danen <vdanen@opensls.org>
 
 	* rsec.spec: /var/log/security should be 0750
