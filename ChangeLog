@@ -1,63 +1,63 @@
-2005-02-14 11:11  Vincent Danen <vdanen@opensls.org>
+2005-02-14 11:11  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.3, rsec.conf, rsec.spec, cron-sh/security.sh: 0.51
 
-2004-07-07 11:01  Vincent Danen <vdanen@opensls.org>
+2004-07-07 11:01  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.spec: Requires: mailx
 
-2004-06-21 19:26  Vincent Danen <vdanen@opensls.org>
+2004-06-21 19:26  Vincent Danen <vdanen@annvix.org>
 
 	* AUTHORS, rsec.3, rsec.spec, cron-sh/urpmicheck.sh: Annvix changes
 
-2004-05-24 11:27  Vincent Danen <vdanen@opensls.org>
+2004-05-24 11:27  Vincent Danen <vdanen@annvix.org>
 
 	* cron-sh/: security.sh, security_check.sh: make chkrootkit check a
 	  little less verbose for email messages
 
-2004-04-23 20:54  Vincent Danen <vdanen@opensls.org>
+2004-04-23 20:54  Vincent Danen <vdanen@annvix.org>
 
 	* Makefile: fix cvs export
 
-2004-04-23 20:52  Vincent Danen <vdanen@opensls.org>
+2004-04-23 20:52  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.spec: 0.50-2sls
 
-2004-04-23 20:49  Vincent Danen <vdanen@opensls.org>
+2004-04-23 20:49  Vincent Danen <vdanen@annvix.org>
 
 	* cron-sh/urpmicheck.sh: make it a bit more robust
 
-2004-03-11 10:38  Vincent Danen <vdanen@opensls.org>
+2004-03-11 10:38  Vincent Danen <vdanen@annvix.org>
 
 	* cron-sh/security.sh: remove VA checks
 
-2004-03-11 10:31  Vincent Danen <vdanen@opensls.org>
+2004-03-11 10:31  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.spec: /var/log/security should be 0750
 
-2004-03-11 10:27  Vincent Danen <vdanen@opensls.org>
+2004-03-11 10:27  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.logrotate, rsec.spec: logs should be 0640 not 0644
 
-2004-03-11 10:23  Vincent Danen <vdanen@opensls.org>
+2004-03-11 10:23  Vincent Danen <vdanen@annvix.org>
 
 	* cron-sh/: diff_check.sh, promisc_check.sh, security.sh,
 	  security_check.sh: remove rpm-va checks
 
-2004-03-11 10:22  Vincent Danen <vdanen@opensls.org>
+2004-03-11 10:22  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.conf, rsec.crondaily, rsec.cronhourly, rsec.spec: default
 	  configs, spec updates
 
-2004-03-10 21:46  Vincent Danen <vdanen@opensls.org>
+2004-03-10 21:46  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.crondaily, rsec.cronhourly, rsec.spec: cron stuff
 
-2004-03-10 21:38  Vincent Danen <vdanen@opensls.org>
+2004-03-10 21:38  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.conf: too quick to commit
 
-2004-03-10 20:36  Vincent Danen <vdanen@opensls.org>
+2004-03-10 20:36  Vincent Danen <vdanen@annvix.org>
 
 	* AUTHORS, COPYING, Makefile, rsec.3, rsec.conf, rsec.logrotate,
 	  rsec.spec, cron-sh/Makefile, cron-sh/diff_check.sh,
