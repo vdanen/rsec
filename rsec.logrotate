@@ -4,7 +4,7 @@
 # file not existing
 
 /var/log/security.log {
-    create 644 root root
+    create 640 root root
 	monthly
 	compress
 }

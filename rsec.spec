@@ -54,7 +54,7 @@ popd
 touch %{buildroot}/var/log/security.log
 
 %post
-touch /var/log/security.log
+touch /var/log/security.log && chmod 0640 /var/log/security.log
 
 %clean
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
@@ -73,7 +73,7 @@ touch /var/log/security.log
 %config(noreplace) %{_sysconfdir}/cron.daily/rsec
 %config(noreplace) %{_sysconfdir}/cron.hourly/rsec
 %{_sysconfdir}/cron.daily/urpmicheck
-%ghost /var/log/security.log
+%ghost %attr(0640,root,root) /var/log/security.log
 
 %changelog
 * Wed Mar 10 2004 Vincent Danen <vdanen@opensls.org> 0.50-1sls
