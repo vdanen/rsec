@@ -1,3 +1,11 @@
+2005-02-14 11:11  Vincent Danen <vdanen@opensls.org>
+
+	* rsec.3, rsec.conf, rsec.spec, cron-sh/security.sh: 0.51
+
+2004-07-07 11:01  Vincent Danen <vdanen@opensls.org>
+
+	* rsec.spec: Requires: mailx
+
 2004-06-21 19:26  Vincent Danen <vdanen@opensls.org>
 
 	* AUTHORS, rsec.3, rsec.spec, cron-sh/urpmicheck.sh: Annvix changes
