@@ -1,3 +1,7 @@
+2004-03-11 10:31  Vincent Danen <vdanen@opensls.org>
+
+	* rsec.spec: /var/log/security should be 0750
+
 2004-03-11 10:27  Vincent Danen <vdanen@opensls.org>
 
 	* rsec.logrotate, rsec.spec: logs should be 0640 not 0644
