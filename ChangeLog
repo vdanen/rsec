@@ -1,3 +1,7 @@
+2004-04-23 20:54  Vincent Danen <vdanen@opensls.org>
+
+	* Makefile: fix cvs export
+
 2004-04-23 20:52  Vincent Danen <vdanen@opensls.org>
 
 	* rsec.spec: 0.50-2sls
@@ -41,8 +45,6 @@
 	* AUTHORS, COPYING, Makefile, rsec.3, rsec.conf, rsec.logrotate,
 	  rsec.spec, cron-sh/Makefile, cron-sh/diff_check.sh,
 	  cron-sh/promisc_check.sh, cron-sh/security.sh,
-	  cron-sh/security_check.sh, cron-sh/urpmicheck.sh,
-	  src/promisc_check/Makefile, src/promisc_check/promisc_check.c,
-	  src/rsec_find/Makefile, src/rsec_find/find.c: initial commit,
+	  cron-sh/security_check.sh, cron-sh/urpmicheck.sh: initial commit,
 	  fork from msec 0.42
 
