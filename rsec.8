@@ -1,0 +1,94 @@
+.TH rsec 3 "10 Mar 2004" "OpenSLS" "OpenSLS"
+.SH NAME
+rsec - OpenSLS security reporting tool
+.SH DESCRIPTION
+\fPrsec\fP is a suite of scripts that handle security reporting on an
+OpenSLS system.  Essentially, rsec is the little brother of Mandrakesoft's
+msec utility in that all rsec does is reporting; it does not change anything
+on the system whatsoever.  The daily security checks you may be familiar
+with from msec are what make up rsec.
+.PP
+The components of rsec are some shellscripts that are called via
+/etc/cron.hourly and /etc/cron.daily.  rsec is a passive reporting system,
+there is very little a system's administrator needs to do other than view
+the reports.
+.PP
+The configuration file of rsec is /etc/security/rsec.conf.  The following
+options can be configured.  The various options allow you to customize what
+rsec reports.
+
+.SH CONFIGURATION OPTIONS
+.PP
+Available options:
+.TP
+\fBCHECK_SECURITY=[yes|no]\fR
+Enables or disables rsec reports completely.
+.TP
+\fBCHECK_UNOWNED=[yes|no]\fR
+Enables rsec's checking of files that are owned by uid's and gid's that are
+not available on the system.
+.TP
+\fBCHECK_SUID_MD5=[yes|no]\fR
+Enables rsec's checking of md5sums for files that are installed suid.  This
+report will indicate if the md5sums have changed for an suid file which may
+indicate a rootkit or other tampering.
+.TP
+\fBCHECK_SUID_ROOT=[yes|no]\fR
+Enables rsec's checking for new suid root files installed on the system.
+.TP
+\fBCHECK_SGID=[yes|no]\fR
+Enables rsec's checking for new sgid files installed on the system.
+.TP
+\fBCHECK_WRITABLE=[yes|no]\fR
+Enables rsec's checking for files that are world-writeable.
+.TP
+\fBRPM_CHECK=[yes|no]\fR
+Enables rsec's checking for newly installed or removed RPM packages.
+.TP
+\fBCHECK_OPEN_PORT=[yes|no]\fR
+Enables rsec's checking for open and listening ports on your system.
+.TP
+\fBCHKROOTKIT_CHECK=[yes|no]\fR
+Enables rsec's invocation of chkrootkit to check the system for any signs of
+a rootkit being installed.
+.TP
+\fBSYSLOG_WARN=[yes|no]\fR
+Enables rsec's logging to syslog.  Typically, rsec logs to the
+/var/log/security.log file, however with this option enabled, rsec will also
+log to syslog.  This is extremely useful if you have syslog configured to
+log to a remote syslog server and which to see the output of rsec's checking
+on the remote syslog server.
+.TP
+\fBTTY_WARN=[yes|no]\fR
+Enables rsec's logging to any TTY that root is logged into.  rsec can be
+configured to print it's reports to the consoles that are logged into by
+root.
+.TP
+\fBMAIL_WARN=[yes|no]\fR
+Enables rsec's emailing of reports to either root, if \fBMAIL_USER\fR is not
+set, or to whichever email address \fBMAIL_USER\fR is set to.
+.TP
+\fBMAIL_EMPTY_CONTENT=[yes|no]\fR
+If set to yes, rsec will email reports regardless of whether they contain
+anything.
+.TP
+\fBMAIL_USER=n\fR
+By default, if configured, rsec will email reports to the system's root
+user.  With this setting, you can control who receives the reports.
+.TP
+\fBCHECK_PERMS=[yes|no]\fR
+Enables rsec's checking for files with bad permissions; ie. files owned by
+one user but in another user's home directory, and so forth.
+.TP
+\fBCHECK_PASSWD=[yes|no]\fR
+Enables rsec's sanity checks on /etc/passwd; ie. ensuring that all accounts
+that should have passwords do have passwords.
+.TP
+\fBCHECK_SHADOW=[yes|no]\fR
+Enables rsec's sanity checks on /etc/shadow; ie. ensuring that all accounts
+that should have passwords do have passwords.
+.TP
+\fBCHECK_PROMISC=[yes|no]\fR
+Enables rsec's check on whether or not any ethernet cards are in promiscous
+mode.  While all of the other checks are done on a daily basis, this one
+check is done on an hourly basis.
