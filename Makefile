@@ -71,7 +71,7 @@ rpm: changelog cvstag dist buildrpm
 dist: cleandist dir export tar
 
 export:
-	cvs export -d $(PACKAGE)-$(VERSION) -r $(TAG) $(PACKAGE)
+	cvs export -d $(PACKAGE)-$(VERSION) -r $(TAG) tools/$(PACKAGE)
 
 cvstag:
 	cvs tag $(CVSTAGOPT) $(TAG)
