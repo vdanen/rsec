@@ -1,6 +1,6 @@
 %define name	rsec
 %define version	0.50
-%define release	3avx
+%define release	4avx
 
 Summary:	Security Reporting tool for Annvix
 Name:		%{name}
@@ -13,7 +13,7 @@ Source0:	%{name}-%{version}.tar.bz2
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
 
-Requires:	bash coreutils perl-base diffutils shadow-utils gawk
+Requires:	bash coreutils perl-base diffutils shadow-utils gawk mailx
 Requires:	setup >= 2.2.0-21mdk, coreutils, iproute2
 PreReq:		rpm-helper >= 0.4
 Conflicts:	passwd < 0.67, msec
@@ -76,6 +76,9 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 %ghost %attr(0640,root,root) /var/log/security.log
 
 %changelog
+* Wed Jul 07 2004 Vincent Danen <vdanen@annvix.org> 0.50-4avx
+- Requires: mailx (for /bin/mail)
+
 * Mon Jun 21 2004 Vincent Danen <vdanen@annvix.org> 0.50-3avx
 - Requires: packages, not files
 - Annvix build
