@@ -1,3 +1,2 @@
 #!/bin/sh
-cd /usr/share/rsec
-./security.sh
+/usr/share/rsec/security.sh
