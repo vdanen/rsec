@@ -1,3 +1,7 @@
+2004-03-11 10:27  Vincent Danen <vdanen@opensls.org>
+
+	* rsec.logrotate, rsec.spec: logs should be 0640 not 0644
+
 2004-03-11 10:23  Vincent Danen <vdanen@opensls.org>
 
 	* cron-sh/: diff_check.sh, promisc_check.sh, security.sh,
