@@ -247,13 +247,13 @@ if [[ ${CHECK_OPEN_PORT} == yes ]]; then
 fi
 
 
-### chkrootkit checks
-if [[ ${CHKROOTKIT_CHECK} == yes ]]; then
+### rkhunter checks
+if [[ ${RKHUNTER_CHECK} == yes ]]; then
 
-    if [[ -s ${CHKROOTKIT_TODAY} ]]; then
-	printf "\nChkrootkit report shortlist:\n" >> ${SECURITY}
-	cat ${CHKROOTKIT_TODAY_SUMM} >> ${SECURITY}
-	printf "\nSee ${CHKROOTKIT_TODAY} for a full scan report\n" >> ${SECURITY}
+    if [[ -s ${RKHUNTER_TODAY} ]]; then
+	printf "\nrkhunter report shortlist:\n" >> ${SECURITY}
+	cat ${RKHUNTER_TODAY_SUMM} >> ${SECURITY}
+	printf "\nSee ${RKHUNTER_TODAY} for a full scan report\n" >> ${SECURITY}
     fi
 fi
 

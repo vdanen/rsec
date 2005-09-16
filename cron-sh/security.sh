@@ -56,9 +56,9 @@ UNOWNED_GROUP_DIFF="/var/log/security/unowned_group.diff"
 export RPM_QA_TODAY="/var/log/security/rpm-qa.today"
 RPM_QA_YESTERDAY="/var/log/security/rpm-qa.yesterday"
 RPM_QA_DIFF="/var/log/security/rpm-qa.diff"
-export CHKROOTKIT_TODAY="/var/log/security/chkrootkit.today"
-export CHKROOTKIT_TODAY_SUMM="/var/log/security/chkrootkit.summ"
-CHKROOTKIT_YESTERDAY="/var/log/security/chkrootkit.yesterday"
+export RKHUNTER_TODAY="/var/log/security/rkhunter.today"
+export RKHUNTER_TODAY_SUMM="/var/log/security/rkhunter.summ"
+RKHUNTER_YESTERDAY="/var/log/security/rkhunter.yesterday"
 
 # Modified filters coming from debian security scripts.
 CS_NFSAFS='(nfs|afs|xfs|coda)'
@@ -105,8 +105,8 @@ if [[ -f ${RPM_QA_TODAY} ]]; then
     mv -f ${RPM_QA_TODAY} ${RPM_QA_YESTERDAY}
 fi
 
-if [[ -f ${CHKROOTKIT_TODAY} ]]; then
-    mv -f ${CHKROOTKIT_TODAY} ${CHKROOTKIT_YESTERDAY}
+if [[ -f ${RKHUNTER_TODAY} ]]; then
+    mv -f ${RKHUNTER_TODAY} ${RKHUNTER_YESTERDAY}
 fi
 
 netstat -pvlA inet 2> /dev/null > ${OPEN_PORT_TODAY};
@@ -159,11 +159,11 @@ if [[ ${RPM_CHECK} == yes ]]; then
     rpm -qa --qf "%{NAME}-%{VERSION}-%{RELEASE}\t%{INSTALLTIME}\n" | sort > ${RPM_QA_TODAY}
 fi
 
-### chkrootkit checks
-if [[ ${CHKROOTKIT_CHECK} == yes ]]; then
-    if [ -x /usr/sbin/chkrootkit ]; then
-	/usr/sbin/chkrootkit > ${CHKROOTKIT_TODAY}
-	/usr/sbin/chkrootkit -q > ${CHKROOTKIT_TODAY_SUMM}
+### rkhunter checks
+if [[ ${RKHUNTER_CHECK} == yes ]]; then
+    if [ -x /usr/sbin/rkhunter ]; then
+	/usr/sbin/rkhunter --cronjob > ${RKHUNTER_TODAY}
+	/usr/sbin/rkhunter --cronjob --report-mode --report-warnings-only > ${RKHUNTER_TODAY_SUMM}
     fi
 fi
 

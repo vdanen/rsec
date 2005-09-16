@@ -1,6 +1,15 @@
-%define name	rsec
-%define version	0.51
-%define release	1avx
+#
+# spec file for package rsec
+#
+# Package for the Annvix Linux distribution: http://annvix.org/
+#
+# Please submit bugfixes or comments via http://bugs.annvix.org/
+#
+
+
+%define name		rsec
+%define version		0.60
+%define release		1avx
 
 Summary:	Security Reporting tool for Annvix
 Name:		%{name}
@@ -11,7 +20,7 @@ Group:		System/Base
 URL:		http://annvix.org/cgi-bin/viewcvs.cgi/tools/rsec/
 Source0:	%{name}-%{version}.tar.bz2
 
-BuildRoot:	%_tmppath/%name-%version-%release-root
+BuildRoot:	%{_buildroot}/%{name}-%{version}
 
 Requires:	bash coreutils perl-base diffutils shadow-utils gawk mailx
 Requires:	setup >= 2.2.0-21mdk, coreutils, iproute2
@@ -26,12 +35,16 @@ nothing more than a reporting tool to advise you of changes to your system
 and potential problem areas.  Any changes or fixes are entirely up to the
 user to correct.
 
+
 %prep
+
 
 %setup -q
 
+
 %build
 make CFLAGS="%{optflags}"
+
 
 %install
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
@@ -48,22 +61,25 @@ install -m 0640 rsec.conf %{buildroot}%{_sysconfdir}/security
 install -m 0750 rsec.crondaily %{buildroot}%{_sysconfdir}/cron.daily/rsec
 install -m 0750 rsec.cronhourly %{buildroot}%{_sysconfdir}/cron.hourly/rsec
 pushd %{buildroot}%{_sysconfdir}/cron.daily
-	ln -s ../..%{_datadir}/rsec/urpmicheck.sh urpmicheck
+    ln -s ../..%{_datadir}/rsec/urpmicheck.sh urpmicheck
 popd
 
 touch %{buildroot}/var/log/security.log
 
+
 %post
 touch /var/log/security.log && chmod 0640 /var/log/security.log
+
 
 %clean
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
 
+
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog
-%_bindir/promisc_check
-%_bindir/rsec_find
+%{_bindir}/promisc_check
+%{_bindir}/rsec_find
 %dir %_datadir/rsec
 %{_datadir}/rsec/*
 %{_mandir}/man3/rsec.3*
@@ -75,7 +91,17 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 %{_sysconfdir}/cron.daily/urpmicheck
 %ghost %attr(0640,root,root) /var/log/security.log
 
+
 %changelog
+* Fri Sep 16 2005 Vincent Danen <vdanen@annvix.org> 0.60-1avx
+- 0.60: uses rkhunter rather than chkrootkit
+
+* Wed Aug 17 2005 Vincent Danen <vdanen@annvix.org> 0.51-3avx
+- bootstrap build (new gcc, new glibc)
+
+* Thu Jun 09 2005 Vincent Danen <vdanen@annvix.org> 0.51-2avx
+- rebuild
+
 * Sun Feb 13 2005 Vincent Danen <vdanen@annvix.org> 0.51-1avx
 - 0.51: new option to exclude certain directories from the world-writeable file check
 
