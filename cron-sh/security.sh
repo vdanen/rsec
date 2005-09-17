@@ -59,6 +59,7 @@ RPM_QA_DIFF="/var/log/security/rpm-qa.diff"
 export RKHUNTER_TODAY="/var/log/security/rkhunter.today"
 export RKHUNTER_TODAY_SUMM="/var/log/security/rkhunter.summ"
 RKHUNTER_YESTERDAY="/var/log/security/rkhunter.yesterday"
+export EXCLUDE_REGEXP
 
 # Modified filters coming from debian security scripts.
 CS_NFSAFS='(nfs|afs|coda)'
@@ -68,6 +69,8 @@ CS_DIRS='on /mnt'
 FILTERS="$CS_TYPES|$CS_DEVS|$CS_DIRS"
 DIR=`mount | grep -vE "$FILTERS" | cut -d ' ' -f3`
 PRINT="%h/%f\n"
+EXCLUDEDIR=`mount | grep -E "$FILTERS" | cut -d ' ' -f3`
+export EXCLUDEDIR
 
 if [[ ! -d /var/log/security ]]; then
     mkdir /var/log/security
