@@ -99,3 +99,8 @@ that should have passwords do have passwords.
 Enables rsec's check on whether or not any ethernet cards are in promiscous
 mode.  While all of the other checks are done on a daily basis, this one
 check is done on an hourly basis.
+.TP
+\fBEXCLUDE_REGEXP=[regexp]\fR
+This allows you to exclude certain directories and files from the daily reports
+that rsec executes.  For instance, you could use the regexp \fI"^/tmp"\fR to exclude
+the /tmp directory.
