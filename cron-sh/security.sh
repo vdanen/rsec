@@ -61,8 +61,8 @@ export RKHUNTER_TODAY_SUMM="/var/log/security/rkhunter.summ"
 RKHUNTER_YESTERDAY="/var/log/security/rkhunter.yesterday"
 
 # Modified filters coming from debian security scripts.
-CS_NFSAFS='(nfs|afs|xfs|coda)'
-CS_TYPES=' type (devpts|auto|proc|msdos|fat|vfat|iso9660|ncpfs|smbfs|'$CS_NFSAFS')'
+CS_NFSAFS='(nfs|afs|coda)'
+CS_TYPES=' type (devpts|auto|proc|msdos|fat|vfat|iso9660|ncpfs|smbfs|hfs|'$CS_NFSAFS')'
 CS_DEVS='^/dev/fd'
 CS_DIRS='on /mnt'
 FILTERS="$CS_TYPES|$CS_DEVS|$CS_DIRS"
