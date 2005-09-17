@@ -1,3 +1,43 @@
+2005-09-17 11:06  Vincent Danen <vdanen@annvix.org>
+
+	* cron-sh/security.sh: don't check sysfs and usbfs file systems
+	  (mdk bug #14359) (flepied)
+
+2005-09-17 11:05  Vincent Danen <vdanen@annvix.org>
+
+	* cron-sh/security_check.sh: fix user or homedir with spaces (mdk
+	  bug #16237) (flepied)
+
+2005-09-17 11:03  Vincent Danen <vdanen@annvix.org>
+
+	* cron-sh/security_check.sh: shell variable protection (Frederic
+	  Marmond) (flepied)
+
+2005-09-17 10:55  Vincent Danen <vdanen@annvix.org>
+
+	* rsec.3, rsec.conf: document EXCLUDE_REGEXP
+
+2005-09-17 10:50  Vincent Danen <vdanen@annvix.org>
+
+	* cron-sh/security.sh, cron-sh/security_check.sh,
+	  src/rsec_find/find.c: use the EXCLUDE_REGEXP to be able to
+	  exclude files or directories from the reports (flepied)
+
+2005-09-17 10:39  Vincent Danen <vdanen@annvix.org>
+
+	* cron-sh/security_check.sh: use getent rather than /etc/passwd
+	  directly (useful for ldap, etc.) (flepied)
+
+2005-09-17 10:33  Vincent Danen <vdanen@annvix.org>
+
+	* cron-sh/diff_check.sh: allow % in filenames [mdk bug #6144] (Sven
+	  Hoexter) (flepied)
+
+2005-09-17 10:28  Vincent Danen <vdanen@annvix.org>
+
+	* cron-sh/security.sh: removed xfs from remote filesystems and
+	  added hfs in foreign filesystems (Stefaan Simoens) (flepied)
+
 2005-09-16 12:51  Vincent Danen <vdanen@annvix.org>
 
 	* rsec.3, rsec.conf, rsec.spec, cron-sh/security.sh,
