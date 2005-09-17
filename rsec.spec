@@ -8,7 +8,7 @@
 
 
 %define name		rsec
-%define version		0.60
+%define version		0.61
 %define release		1avx
 
 Summary:	Security Reporting tool for Annvix
@@ -50,13 +50,13 @@ make CFLAGS="%{optflags}"
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
 
 mkdir -p %{buildroot}{%{_sysconfdir}/{security,logrotate.d,cron.daily,cron.hourly}}
-mkdir -p %{buildroot}{%{_datadir}/rsec,%{_bindir},/var/log/security,%{_mandir}/man3}
+mkdir -p %{buildroot}{%{_datadir}/rsec,%{_bindir},/var/log/security,%{_mandir}/man8}
 
 install -m 0640 cron-sh/{security,diff}_check.sh %{buildroot}%{_datadir}/rsec
 install -m 0750 cron-sh/{promisc_check,security,urpmicheck}.sh %{buildroot}%{_datadir}/rsec
 install -m 0750 src/promisc_check/promisc_check src/rsec_find/rsec_find %{buildroot}%{_bindir}
 install -m 0644 rsec.logrotate %{buildroot}/etc/logrotate.d/rsec
-install -m 0644 *.3 %{buildroot}%{_mandir}/man3/
+install -m 0644 *.8 %{buildroot}%{_mandir}/man8/
 install -m 0640 rsec.conf %{buildroot}%{_sysconfdir}/security
 install -m 0750 rsec.crondaily %{buildroot}%{_sysconfdir}/cron.daily/rsec
 install -m 0750 rsec.cronhourly %{buildroot}%{_sysconfdir}/cron.hourly/rsec
@@ -82,7 +82,7 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 %{_bindir}/rsec_find
 %dir %_datadir/rsec
 %{_datadir}/rsec/*
-%{_mandir}/man3/rsec.3*
+%{_mandir}/man8/rsec.8*
 %dir %attr(0750,root,root) /var/log/security
 %config(noreplace) %{_sysconfdir}/security/rsec.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/rsec
@@ -93,6 +93,17 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 
 
 %changelog
+* Sat Sep 17 2005 Vincent Danen <vdanen@annvix.org> 0.61-1avx
+- 0.61
+  - don't check sysfs, usbfs, or hfs filesystems
+  - fix user or homedir with spaces
+  - new option to rsec.conf: EXCLUDE_REGEXP; used to exclude directories from
+    the various reports
+  - use getent rather than /etc/passwd for lookups (due to LDAP/NIS users)
+  - allow % in filenames
+  - removed xfs from remote filesystems
+  - updated manpage and moved it from .3 to .8
+
 * Fri Sep 16 2005 Vincent Danen <vdanen@annvix.org> 0.60-1avx
 - 0.60: uses rkhunter rather than chkrootkit
 

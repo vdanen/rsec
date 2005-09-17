@@ -28,9 +28,8 @@ install:
 	touch $(RPM_BUILD_ROOT)/var/log/security.log
 	cd src/promisc_check && make install
 	cd src/rsec_find && make install
-	mkdir -p $(RPM_BUILD_ROOT)/usr/share/man/man3/
-	install -d $(RPM_BUILD_ROOT)/usr/share/man/man3/
-	install -m644 *.3 $(RPM_BUILD_ROOT)/usr/share/man/man3/
+	mkdir -p $(RPM_BUILD_ROOT)/usr/share/man/man8/
+	install -m644 *.8 $(RPM_BUILD_ROOT)/usr/share/man/man8/
 
 version:
 	@echo $(VERSION)-$(RELEASE)
