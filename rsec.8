@@ -103,7 +103,8 @@ check is done on an hourly basis.
 \fBEXCLUDE_REGEXP=[regexp]\fR
 This allows you to exclude certain directories and files from the daily reports
 that rsec executes.  For instance, you could use the regexp \fI"^/tmp"\fR to exclude
-the /tmp directory.
+the /tmp directory.  The regular expressions used are the same as what you would use
+on a commandline and must be properly escaped (ie. "^/tmp\|^/mnt/chroot\|^/var/tmp/php*").
 
 .SH AUTHOR
 rsec is based on the Mandrivalinux tool \fBmsec\fR originally written by Yoann
