@@ -9,7 +9,7 @@
 
 %define name		rsec
 %define version		0.61
-%define release		1avx
+%define release		2avx
 
 Summary:	Security Reporting tool for Annvix
 Name:		%{name}
@@ -93,6 +93,9 @@ touch /var/log/security.log && chmod 0640 /var/log/security.log
 
 
 %changelog
+* Fri Oct 28 2005 Vincent Danen <vdanen@annvix.org> 0.61-2avx
+- update the docs/configs to explain EXCLUDE_REGEXP better
+
 * Sat Sep 17 2005 Vincent Danen <vdanen@annvix.org> 0.61-1avx
 - 0.61
   - don't check sysfs, usbfs, or hfs filesystems
