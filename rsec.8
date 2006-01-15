@@ -26,7 +26,8 @@ Enables or disables rsec reports completely.
 .TP
 \fBCHECK_UNOWNED=[yes|no]\fR
 Enables rsec's checking of files that are owned by uid's and gid's that are
-not available on the system.
+not available on the system.  NOTE: Unlike msec, rsec does not change the
+ownership of unowned files.
 .TP
 \fBCHECK_SUID_MD5=[yes|no]\fR
 Enables rsec's checking of md5sums for files that are installed suid.  This

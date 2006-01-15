@@ -1,141 +1,29 @@
-2005-10-28 12:53  Vincent Danen <vdanen@annvix.org>
+* Sun Jan 15 2006 Vincent Danen <vdanen@annvix.org>
+- 0.62:
+  - don't chown/chgrp files, just report
+  - update the docs/configs to explain EXCLUDE_REGEXP better
+  - don't ship with an rpm spec file anymore
 
-	* rsec.8, rsec.conf, rsec-0.61/rsec.8, rsec-0.61/rsec.conf: better
-	  examples for EXCLUDE_REGEXP
+* Sat Sep 17 2005 Vincent Danen <vdanen@annvix.org>
+- 0.61
+  - don't check sysfs, usbfs, or hfs filesystems
+  - fix user or homedir with spaces
+  - new option to rsec.conf: EXCLUDE_REGEXP; used to exclude directories from
+    the various reports
+  - use getent rather than /etc/passwd for lookups (due to LDAP/NIS users)
+  - allow % in filenames
+  - removed xfs from remote filesystems
+  - updated manpage and moved it from .3 to .8
 
-2005-09-17 11:29  Vincent Danen <vdanen@annvix.org>
+* Fri Sep 16 2005 Vincent Danen <vdanen@annvix.org>
+- 0.60
+  - uses rkhunter rather than chkrootkit
 
-	* Makefile, rsec.spec, rsec-0.61/Makefile, rsec-0.61/rsec.spec:
-	  0.61
+* Sun Feb 13 2005 Vincent Danen <vdanen@annvix.org>
+- 0.51
+  - new option to exclude certain directories from the world-writeable file check
 
-2005-09-17 11:29  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.8, rsec-0.61/rsec.8: man8 not man3
-
-2005-09-17 11:06  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/security.sh: don't check sysfs and usbfs file systems
-	  (mdk bug #14359) (flepied)
-
-2005-09-17 11:05  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/security_check.sh: fix user or homedir with spaces (mdk
-	  bug #16237) (flepied)
-
-2005-09-17 11:03  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/security_check.sh: shell variable protection (Frederic
-	  Marmond) (flepied)
-
-2005-09-17 10:55  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.8, rsec.conf, rsec-0.61/rsec.8, rsec-0.61/rsec.conf:
-	  document EXCLUDE_REGEXP
-
-2005-09-17 10:50  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/security.sh, cron-sh/security_check.sh,
-	  src/rsec_find/find.c: use the EXCLUDE_REGEXP to be able to
-	  exclude files or directories from the reports (flepied)
-
-2005-09-17 10:39  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/security_check.sh: use getent rather than /etc/passwd
-	  directly (useful for ldap, etc.) (flepied)
-
-2005-09-17 10:33  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/diff_check.sh: allow % in filenames [mdk bug #6144] (Sven
-	  Hoexter) (flepied)
-
-2005-09-17 10:28  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/security.sh: removed xfs from remote filesystems and
-	  added hfs in foreign filesystems (Stefaan Simoens) (flepied)
-
-2005-09-16 12:51  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.8, rsec.conf, rsec.spec, rsec-0.61/rsec.8,
-	  rsec-0.61/rsec.conf, rsec-0.61/rsec.spec, cron-sh/security.sh,
-	  cron-sh/security_check.sh: 0.60: change from chkrootkit to
-	  rkhunter
-
-2005-02-14 11:11  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.8, rsec.conf, rsec.spec, rsec-0.61/rsec.8,
-	  rsec-0.61/rsec.conf, rsec-0.61/rsec.spec, cron-sh/security.sh:
-	  0.51
-
-2004-07-07 11:01  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.spec, rsec-0.61/rsec.spec: Requires: mailx
-
-2004-06-21 19:26  Vincent Danen <vdanen@annvix.org>
-
-	* AUTHORS, rsec.8, rsec.spec, rsec-0.61/AUTHORS, rsec-0.61/rsec.8,
-	  rsec-0.61/rsec.spec, cron-sh/urpmicheck.sh: Annvix changes
-
-2004-05-24 11:27  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/: security.sh, security_check.sh: make chkrootkit check a
-	  little less verbose for email messages
-
-2004-04-23 20:54  Vincent Danen <vdanen@annvix.org>
-
-	* Makefile, rsec-0.61/Makefile: fix cvs export
-
-2004-04-23 20:52  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.spec, rsec-0.61/rsec.spec: 0.50-2sls
-
-2004-04-23 20:49  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/urpmicheck.sh: make it a bit more robust
-
-2004-03-11 10:38  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/security.sh: remove VA checks
-
-2004-03-11 10:31  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.spec, rsec-0.61/rsec.spec: /var/log/security should be 0750
-
-2004-03-11 10:27  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.logrotate, rsec.spec, rsec-0.61/rsec.logrotate,
-	  rsec-0.61/rsec.spec: logs should be 0640 not 0644
-
-2004-03-11 10:23  Vincent Danen <vdanen@annvix.org>
-
-	* cron-sh/: diff_check.sh, promisc_check.sh, security.sh,
-	  security_check.sh: remove rpm-va checks
-
-2004-03-11 10:22  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.conf, rsec.crondaily, rsec.cronhourly, rsec.spec,
-	  rsec-0.61/rsec.conf, rsec-0.61/rsec.crondaily,
-	  rsec-0.61/rsec.cronhourly, rsec-0.61/rsec.spec: default configs,
-	  spec updates
-
-2004-03-10 21:46  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.crondaily, rsec.cronhourly, rsec.spec,
-	  rsec-0.61/rsec.crondaily, rsec-0.61/rsec.cronhourly,
-	  rsec-0.61/rsec.spec: cron stuff
-
-2004-03-10 21:38  Vincent Danen <vdanen@annvix.org>
-
-	* rsec.conf, rsec-0.61/rsec.conf: too quick to commit
-
-2004-03-10 20:36  Vincent Danen <vdanen@annvix.org>
-
-	* AUTHORS, COPYING, Makefile, rsec.8, rsec.conf, rsec.logrotate,
-	  rsec.spec, rsec-0.61/AUTHORS, rsec-0.61/COPYING,
-	  rsec-0.61/Makefile, rsec-0.61/rsec.8, rsec-0.61/rsec.conf,
-	  rsec-0.61/rsec.logrotate, rsec-0.61/rsec.spec, cron-sh/Makefile,
-	  cron-sh/diff_check.sh, cron-sh/promisc_check.sh,
-	  cron-sh/security.sh, cron-sh/security_check.sh,
-	  cron-sh/urpmicheck.sh, src/promisc_check/Makefile,
-	  src/promisc_check/promisc_check.c, src/rsec_find/Makefile,
-	  src/rsec_find/find.c: initial commit, fork from msec 0.42
-
+* Fri Apr 23 2004 Vincent Danen <vdanen@opensls.org>
+- 0.50:
+  - make urpmicheck.sh a bit more robust
+  - initial fork from msec 0.42
