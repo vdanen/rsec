@@ -1,4 +1,4 @@
-.TH rsec 8 "17 Sep 2005" "Annvix" "Annvix"
+.TH rsec 8 "13 Mar 2006" "Annvix" "Annvix"
 .SH NAME
 rsec - Annvix security reporting tool
 .SH DESCRIPTION
@@ -106,6 +106,15 @@ This allows you to exclude certain directories and files from the daily reports
 that rsec executes.  For instance, you could use the regexp \fI"^/tmp"\fR to exclude
 the /tmp directory.  The regular expressions used are the same as what you would use
 on a commandline and must be properly escaped (ie. "^/tmp\|^/mnt/chroot\|^/var/tmp/php*").
+.TP
+\fBEXCLUDEDIR=[dir list]\fR
+This allows you to exclude certain directories from the home directory checks that rsec
+executes.  These checks include the home directory shared with other users, group or world
+writable home directories, other-owned or readable .ssh, .gnupg, etc. directories and so
+forth.  This option is useful to exclude shared home directories, such as \fI/var/lib/rsbac\fR
+from showing up in the report (/var/lib/rsbac is the shared home for rsbadmin, rsbdata, and
+rsbtpmgr).  By default, this is set to "/var/lib/rsbac".  To add more entries to this list,
+add home directories separated by a space.
 
 .SH AUTHOR
 rsec is based on the Mandrivalinux tool \fBmsec\fR originally written by Yoann
