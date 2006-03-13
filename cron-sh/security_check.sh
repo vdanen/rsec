@@ -36,14 +36,12 @@ fi
 ### Search Un Owned file
 if [[ ${CHECK_UNOWNED} == yes ]]; then
     if [[ -s ${UNOWNED_USER_TODAY} ]]; then
-	printf "\nSecurity Warning : User Unowned files found :\n" >> ${SECURITY}
-	printf "\t( theses files now have user \"nobody\" as their owner. )\n" >> ${SECURITY}
+	printf "\nSecurity Warning : The following files are owned by an unknown user:\n" >> ${SECURITY}
 	cat ${UNOWNED_USER_TODAY} | awk '{print "\t\t- " $0}' >> ${SECURITY}
     fi
 
     if [[ -s ${UNOWNED_GROUP_TODAY} ]]; then
-	printf "\nSecurity Warning : Group Unowned files found :\n" >> ${SECURITY}
-        printf "\t( theses files now have group \"nogroup\" as their group owner. )\n" >> ${SECURITY}
+	printf "\nSecurity Warning : The following files are owned by an unknown group:\n" >> ${SECURITY}
 	cat ${UNOWNED_GROUP_TODAY} | awk '{print "\t\t- " $0}' >> ${SECURITY}
     fi
 fi
