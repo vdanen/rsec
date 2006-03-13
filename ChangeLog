@@ -1,3 +1,12 @@
+* Mon Mar 13 2006 Vincent Danen <vdanen@annvix.org>
+-0.63:
+  - change reporting of unowned user/group files since we don't chown
+    them anymore
+  - document the EXCLUDEDIR option and include it in the default rsec.conf
+    with a default entry of "/var/lib/rsbac"
+  - set EXCLUDE_REGEXP to exclude /override and /var/tmp/php_sessions by
+    default
+
 * Sun Jan 15 2006 Vincent Danen <vdanen@annvix.org>
 - 0.62:
   - don't chown/chgrp files, just report
