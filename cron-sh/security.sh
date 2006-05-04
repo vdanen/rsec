@@ -175,7 +175,7 @@ fi
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then
     while read line; do
-        /sbin/initlog --string="${line}"
+        /usr/bin/logger "${line}"
     done < ${1}
     fi
 }
