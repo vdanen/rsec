@@ -1,4 +1,4 @@
-VERSION = 0.63
+VERSION = 0.65
 PACKAGE = rsec
 
 all: promisc_check rsec_find
