@@ -94,7 +94,9 @@ that should have passwords do have passwords.
 .TP
 \fBCHECK_SHADOW=[yes|no]\fR
 Enables rsec's sanity checks on /etc/shadow; ie. ensuring that all accounts
-that should have passwords do have passwords.
+that should have passwords do have passwords.  Note that if /etc/shadow does
+not exist (i.e. the system is using the tcb password scheme) than this check
+is not performed, regardless of this setting.
 .TP
 \fBCHECK_PROMISC=[yes|no]\fR
 Enables rsec's check on whether or not any ethernet cards are in promiscous

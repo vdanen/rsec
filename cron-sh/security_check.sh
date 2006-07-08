@@ -146,15 +146,19 @@ if [[ ${CHECK_PASSWD} == yes ]]; then
 fi
 
 ### Shadow password file Check
-if [[ ${CHECK_SHADOW} == yes ]]; then
-    awk -F: '{
-	if ( $2 == "" )
-	    printf("\t\t- /etc/shadow:%d: User \"%s\" has no password !\n", FNR, $1);
-    }' < /etc/shadow > ${TMP}
+# this can only be done if we're not using tcb per default, so even if this
+# check may be enabled, check for the existance of /etc/shadow first
+if [ -f /etc/shadow ]; then
+    if [[ ${CHECK_SHADOW} == yes ]]; then
+        awk -F: '{
+	    if ( $2 == "" )
+	        printf("\t\t- /etc/shadow:%d: User \"%s\" has no password !\n", FNR, $1);
+        }' < /etc/shadow > ${TMP}
 
-    if [[ -s ${TMP} ]]; then
-	printf "\nSecurity Warning: /etc/shadow check :\n" >> ${SECURITY}
-	cat ${TMP} >> ${SECURITY}
+        if [[ -s ${TMP} ]]; then
+	    printf "\nSecurity Warning: /etc/shadow check :\n" >> ${SECURITY}
+	    cat ${TMP} >> ${SECURITY}
+        fi
     fi
 fi
 
