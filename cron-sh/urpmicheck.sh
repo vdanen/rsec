@@ -3,6 +3,8 @@
 # Update urpmi and apt media and report on any newly found packages
 #
 # Written by Vincent Danen <vdanen@annvix.org>
+#
+# $Id$
 
 if [[ -f /etc/security/rsec.conf ]]; then
     . /etc/security/rsec.conf
@@ -22,7 +24,7 @@ HEAD=0
 if [ -x /usr/bin/apt-get ]; then
     apt-get update >/dev/null 2>&1
     APTLIST=`apt-get upgrade --check-only 2>/dev/null|egrep -v "(Reading|Building|will be upgraded)"`
-    if [ "${APTLIST}" != "" ]; then'
+    if [ "${APTLIST}" != "" ]; then
         if [ "${HEAD}" -eq 0 ]; then
             printf "\nAnnvix package updates monitor\n\n" >> ${TMP}
             printf "Check performed on ${HOST} on ${DATE}\n\n" >> ${TMP}

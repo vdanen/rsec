@@ -1,6 +1,8 @@
 #!/bin/bash
-
+#
 # Writen by Vandoorselaere Yoann, <yoann@mandrakesoft.com>
+#
+# $Id$
 
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then

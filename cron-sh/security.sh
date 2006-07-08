@@ -1,7 +1,8 @@
-
 #!/bin/bash
-
+#
 # originally based on msec from Mandrakesoft
+#
+# $Id$
 
 LCK=/var/run/rsec.pid
 

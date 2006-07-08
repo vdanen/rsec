@@ -2,6 +2,7 @@
 #
 # Written by Vandoorselaere Yoann, <yoann@mandrakesoft.com>
 #
+# $Id$
 
 if [[ -f /etc/security/rsec.conf ]]; then
     . /etc/security/rsec.conf
