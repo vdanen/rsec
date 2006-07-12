@@ -1,3 +1,7 @@
+* Wed Jul 12 2006 Vincent Danen <vdanen@annvix.org>
+- 0.66:
+  - fix call to logger
+
 * Sat Jul 08 2006 Vincent Danen <vdanen@annvix.org>
 - 0.65:
   - security_check.sh: don't check /etc/shadow if it doesn't exist
