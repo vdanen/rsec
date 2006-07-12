@@ -6,7 +6,7 @@
 
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then
-        /usr/bin/logger "${1}"
+        /bin/logger " ${1}"
     fi
 }
 

@@ -176,7 +176,7 @@ fi
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then
     while read line; do
-        /usr/bin/logger "${line}"
+        /bin/logger " ${line}"
     done < ${1}
     fi
 }
