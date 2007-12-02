@@ -30,8 +30,12 @@ install:
 	mkdir -p $(RPM_BUILD_ROOT)/usr/share/man/man8/
 	install -m644 *.8 $(RPM_BUILD_ROOT)/usr/share/man/man8/
 
-dist: clean
+dist: clean changelog
 	find . -not -name '*.bz2'|cpio -pd $(PACKAGE)-$(VERSION)/
 	find $(PACKAGE)-$(VERSION) -type d -name .svn|xargs rm -rf 
 	tar cfj $(PACKAGE)-$(VERSION).tar.bz2 $(PACKAGE)-$(VERSION)
 	rm -rf $(PACKAGE)-$(VERSION)
+
+changelog:
+	svn update
+	svn2cl --authors=../../common/trunk/username.xml
