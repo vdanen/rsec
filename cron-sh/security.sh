@@ -168,7 +168,7 @@ fi
 ### rkhunter checks
 if [[ ${RKHUNTER_CHECK} == yes ]]; then
     if [ -x /usr/sbin/rkhunter ]; then
-	/usr/sbin/rkhunter --cronjob --summary --disable filesystem,properties > ${RKHUNTER_TODAY_SUMM}
+	/usr/sbin/rkhunter --cronjob --summary --disable filesystem,properties > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
 	cp -f /var/log/security/rkhunter.log ${RKHUNTER_TODAY}
     fi
 fi
