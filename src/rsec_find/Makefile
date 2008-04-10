@@ -7,7 +7,7 @@ CFLAGS = -ggdb -Wall -Wmissing-prototypes -Wmissing-declarations \
 OBJ=find.o
 
 msec_find: $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 $(OBJ) -o $(NAME)
 
 install:
 	mkdir -p $(RPM_BUILD_ROOT)/usr/bin
