@@ -169,7 +169,12 @@ fi
 if [[ ${RKHUNTER_CHECK} == yes ]]; then
     if [ -x /usr/sbin/rkhunter ]; then
 	/usr/sbin/rkhunter --cronjob --summary --disable filesystem,properties > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
-	cp -f /var/log/security/rkhunter.log ${RKHUNTER_TODAY}
+	# the log may be in different locations, so check first
+	if [ -f /var/log/security/rkhunter.log ]; then
+	    cp -f /var/log/security/rkhunter.log ${RKHUNTER_TODAY}
+	elif [ -f /var/log/rkhunter.log ]; then
+	    cp -f /var/log/rkhunter.log ${RKHUNTER_TODAY}
+	fi
     fi
 fi
 
