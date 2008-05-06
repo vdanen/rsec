@@ -39,9 +39,9 @@ SUID_ROOT_DIFF="/var/log/security/suid_root.diff"
 export SGID_TODAY="/var/log/security/sgid.today"
 SGID_YESTERDAY="/var/log/security/sgid.yesterday"
 SGID_DIFF="/var/log/security/sgid.diff"
-export SUID_MD5_TODAY="/var/log/security/suid_md5.today"
-SUID_MD5_YESTERDAY="/var/log/security/suid_md5.yesterday"
-SUID_MD5_DIFF="/var/log/security/suid_md5.diff"
+export SUID_SHA1_TODAY="/var/log/security/suid_sha1.today"
+SUID_SHA1_YESTERDAY="/var/log/security/suid_sha1.yesterday"
+SUID_SHA1_DIFF="/var/log/security/suid_sha1.diff"
 export OPEN_PORT_TODAY="/var/log/security/open_port.today"
 OPEN_PORT_YESTERDAY="/var/log/security/open_port.yesterday"
 OPEN_PORT_DIFF="/var/log/security/open_port.diff"
@@ -103,8 +103,8 @@ if [[ -f ${OPEN_PORT_TODAY} ]]; then
     mv -f ${OPEN_PORT_TODAY} ${OPEN_PORT_YESTERDAY}
 fi
 
-if [[ -f ${SUID_MD5_TODAY} ]]; then
-    mv ${SUID_MD5_TODAY} ${SUID_MD5_YESTERDAY};
+if [[ -f ${SUID_SHA1_TODAY} ]]; then
+    mv ${SUID_SHA1_TODAY} ${SUID_SHA1_YESTERDAY};
 fi
 
 if [[ -f ${RPM_QA_TODAY} ]]; then
@@ -155,8 +155,8 @@ fi
 
 if [[ -f ${SUID_ROOT_TODAY} ]]; then
     while read line; do 
-	md5sum ${line}
-    done < ${SUID_ROOT_TODAY} > ${SUID_MD5_TODAY}
+	sha1sum ${line}
+    done < ${SUID_ROOT_TODAY} > ${SUID_SHA1_TODAY}
 fi
 
 ### rpm database check

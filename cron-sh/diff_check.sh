@@ -101,19 +101,19 @@ if [[ ${CHECK_UNOWNED} == yes ]]; then
 
 fi
 
-### Md5 check for SUID root files
-if [[ ${CHECK_SUID_MD5} == yes  ]]; then
-    ctrl_md5=0;
+### sha1 check for SUID root files
+if [[ ${CHECK_SUID_SHA1} == yes  ]]; then
+    ctrl_sha1=0;
 	
-    if [[ -f ${SUID_MD5_YESTERDAY} ]]; then
-	diff -u ${SUID_MD5_YESTERDAY} ${SUID_MD5_TODAY} > ${SUID_MD5_DIFF}
-	if [ -s ${SUID_MD5_DIFF} ]; then
-	    grep '^+' ${SUID_MD5_DIFF} | grep -vw "^+++ " | sed 's|^.||'|sed -e 's/%/%%/g' | awk '{print $2}' | while read file; do
-		if cat ${SUID_MD5_YESTERDAY} | awk '{print $2}' | grep -qw ${file}; then
-		    if [[ ${ctrl_md5} == 0 ]]; then
-			printf "\nSecurity Warning: the md5 checksum for one of your SUID files has changed,\n" >> ${TMP}
+    if [[ -f ${SUID_SHA1_YESTERDAY} ]]; then
+	diff -u ${SUID_SHA1_YESTERDAY} ${SUID_SHA1_TODAY} > ${SUID_SHA1_DIFF}
+	if [ -s ${SUID_SHA1_DIFF} ]; then
+	    grep '^+' ${SUID_SHA1_DIFF} | grep -vw "^+++ " | sed 's|^.||'|sed -e 's/%/%%/g' | awk '{print $2}' | while read file; do
+		if cat ${SUID_SHA1_YESTERDAY} | awk '{print $2}' | grep -qw ${file}; then
+		    if [[ ${ctrl_sha1} == 0 ]]; then
+			printf "\nSecurity Warning: the sha1 checksum for one of your SUID files has changed,\n" >> ${TMP}
 			printf "\tmaybe an intruder modified one of these suid binary in order to put in a backdoor...\n" >> ${TMP}
-			ctrl_md5=1;
+			ctrl_sha1=1;
 		    fi
 		    printf "\t\t- Checksum changed file : ${file}\n"
 		fi
