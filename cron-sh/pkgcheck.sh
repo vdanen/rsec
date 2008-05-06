@@ -6,6 +6,8 @@
 #
 # $Id$
 
+header="rsec - package updates monitor: @pkg_version@ - \$Id$\n\n"
+
 if [[ -f /etc/security/rsec.conf ]]; then
     . /etc/security/rsec.conf
 else
@@ -26,10 +28,9 @@ if [ -x /usr/bin/apt-get ]; then
     APTLIST=`apt-get upgrade --check-only 2>/dev/null|egrep -v "(Reading|Building|will be upgraded)"`
     if [ "${APTLIST}" != "" ]; then
         if [ "${HEAD}" -eq 0 ]; then
-            printf "\nAnnvix package updates monitor\n\n" >> ${TMP}
+            printf "\n${header}" >> ${TMP}
             printf "Check performed on ${HOST} on ${DATE}\n\n" >> ${TMP}
-            printf "The following updates are available for your system.  To install these\n" >> ${TMP}
-            printf "updates, please use 'urpmi' or 'apt-get' on your system.\n\n" >> ${TMP}
+            printf "The following updates were found available for your system.\n\n" >> ${TMP}
             HEAD=1
             printf "++ The following updates were found via apt:\n\n" >> ${TMP}
             printf "${APTLIST}\n\n" >> ${TMP}
@@ -46,10 +47,9 @@ if [ -x /usr/sbin/urpmi ]; then
         LIST=`urpmq --auto-select --media ${i}`
         if [ "${LIST}" != "" ]; then
             if [ "${HEAD}" -eq 0 ]; then
-                printf "\nAnnvix package updates monitor\n\n" >> ${TMP}
+                printf "\n${header}" >> ${TMP}
                 printf "Check performed on ${HOST} on ${DATE}\n\n" >> ${TMP}
-                printf "The following updates are available for your system.  To install these\n" >> ${TMP}
-                printf "updates, please execute 'urpmi' or 'apt-get' on your system.\n\n" >> ${TMP}
+                printf "The following updates are available for your system.\n\n" >> ${TMP}
                 HEAD=1
             fi
             if [ "${HEAD}" -eq 1 ]; then
