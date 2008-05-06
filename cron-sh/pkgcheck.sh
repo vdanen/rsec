@@ -30,9 +30,8 @@ if [ -x /usr/bin/apt-get ]; then
         if [ "${HEAD}" -eq 0 ]; then
             printf "\n${header}" >> ${TMP}
             printf "Check performed on ${HOST} on ${DATE}\n\n" >> ${TMP}
-            printf "The following updates were found available for your system.\n\n" >> ${TMP}
             HEAD=1
-            printf "++ The following updates were found via apt:\n\n" >> ${TMP}
+            printf "The following updates were found via apt:\n\n" >> ${TMP}
             printf "${APTLIST}\n\n" >> ${TMP}
         fi
     fi
@@ -40,23 +39,21 @@ fi
         
 if [ -x /usr/sbin/urpmi ]; then
     urpmi.update -a >/dev/null 2>&1
-    MEDIA=`urpmq --list-media`
 
-    for i in ${MEDIA}
+    urpmq --list-media | while read media
     do
-        LIST=`urpmq --auto-select --media ${i}`
+        LIST=`urpmq --auto-select --media "${media}" 2>/dev/null`
         if [ "${LIST}" != "" ]; then
             if [ "${HEAD}" -eq 0 ]; then
                 printf "\n${header}" >> ${TMP}
                 printf "Check performed on ${HOST} on ${DATE}\n\n" >> ${TMP}
-                printf "The following updates are available for your system.\n\n" >> ${TMP}
                 HEAD=1
             fi
             if [ "${HEAD}" -eq 1 ]; then
-                printf "++ The following updates were found via urpmi:\n" >> ${TMP}
+                printf "The following updates were found via urpmi:\n\n" >> ${TMP}
                 HEAD=2
             fi
-            printf "++ Packages in media '${i}':\n\n" >> ${TMP}
+            printf "++ Packages in media '${media}':\n\n" >> ${TMP}
             printf "${LIST}\n\n" >> ${TMP}
         fi
     done
