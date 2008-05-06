@@ -3,8 +3,8 @@
 .SH NAME
 rsec - Annvix security reporting tool
 .SH DESCRIPTION
-\fPrsec\fP is a suite of scripts that handle security reporting on an
-Annvix system.  Essentially, rsec is the little brother of Mandriva's
+\fPrsec\fP is a suite of scripts that handle security reporting.
+Essentially, rsec is the little brother of Mandriva's
 msec utility in that all rsec does is reporting; it does not change anything
 on the system whatsoever.  The daily security checks you may be familiar
 with from msec are what make up rsec.
@@ -114,13 +114,11 @@ on a commandline and must be properly escaped (ie. "^/tmp\|^/mnt/chroot\|^/var/t
 This allows you to exclude certain directories from the home directory checks that rsec
 executes.  These checks include the home directory shared with other users, group or world
 writable home directories, other-owned or readable .ssh, .gnupg, etc. directories and so
-forth.  This option is useful to exclude shared home directories, such as \fI/var/lib/rsbac\fR
-from showing up in the report (/var/lib/rsbac is the shared home for rsbadmin, rsbdata, and
-rsbtpmgr).  By default, this is set to "/var/lib/rsbac".  To add more entries to this list,
-add home directories separated by a space.
+forth.  This option is useful to exclude shared home directories.  To add more entries to
+this list, add home directories separated by a space.
 
 .SH AUTHOR
 rsec is based on the Mandrivalinux tool \fBmsec\fR originally written by Yoann
 Vandoorselaere and then re-written by Frederic Lepied <flepied@mandriva.com>.
-rsec was forked from msec by and is currently maintained by Vincent Danen
+rsec was forked from msec, and is currently maintained, by Vincent Danen
 <vdanen@annvix.org>.
