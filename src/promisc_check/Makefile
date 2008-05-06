@@ -1,5 +1,6 @@
 CC = gcc
 NAME = promisc_check
+DESTDIR =
 BINDIR = /usr/bin
 
 CFLAGS = -ggdb -Wall -Wmissing-prototypes -Wmissing-declarations \
@@ -11,5 +12,5 @@ promisc_check: $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
 
 install:
-	mkdir -p $(RPM_BUILD_ROOT)$(BINDIR)
-	install -m 0640 $(NAME) $(RPM_BUILD_ROOT)$(BINDIR)
+	mkdir -p $(DESTDIR)$(BINDIR)
+	install -m 0750 $(NAME) $(DESTDIR)$(BINDIR)
