@@ -6,5 +6,7 @@
 # of course, if you don't want to automatically remove the cache, delete
 # /etc/cron.daily/apt_cleancache.sh
 
-apt-get clean >/dev/null 2>&1
+if [ -x /usr/bin/apt-get ]; then
+    apt-get clean >/dev/null 2>&1
+fi
 
