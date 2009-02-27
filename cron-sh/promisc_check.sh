@@ -6,7 +6,7 @@
 
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then
-        /bin/logger -- " ${1}"
+        ${logger} -- " ${1}"
     fi
 }
 
@@ -39,6 +39,15 @@ fi
 if tail /var/log/security.log | grep -q "promiscuous"; then
     # Dont flood with warning.
     exit 0
+fi
+
+# check for where logger is, and if it doesn't exist, disable syslog
+if [ -x /bin/logger ]; then
+    logger="/bin/logger"
+elif [ -x /usr/bin/logger ]; then
+    logger="/usr/bin/logger"
+else
+    SYSLOG_WARN="no"
 fi
 
 # Check if a network interface is in promiscuous mode...

@@ -31,6 +31,15 @@ fi
 
 umask ${UMASK_ROOT=077}
 
+# check for where logger is, and if it doesn't exist, disable syslog
+if [ -x /bin/logger ]; then
+    logger="/bin/logger"
+elif [ -x /usr/bin/logger ]; then
+    logger="/usr/bin/logger"
+else
+    SYSLOG_WARN="no"
+fi
+
 [[ ${MAIL_WARN} == yes ]] && [ -z ${MAIL_USER} ] && MAIL_USER="root"
 
 export SUID_ROOT_TODAY="/var/log/security/suid_root.today"
@@ -183,7 +192,7 @@ fi
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then
     while read line; do
-        /bin/logger -- " ${line}"
+        ${logger} -- " ${line}"
     done < ${1}
     fi
 }
