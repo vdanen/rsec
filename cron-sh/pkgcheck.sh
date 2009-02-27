@@ -28,15 +28,18 @@ function print_header() {
     fi
 }
 
-# apt comes first as urpmi is most likely to be the one most used, so if apt exists
-# it's because the user wants to use it
-
+# yum is funny because yum-updatesd may be installed on the system and doing updates
+# but the user may not be aware and the default seems to use dbus, so we need to see
+# if the user gets updates from it via email first
+doyum=1
 if [ -x /usr/sbin/yum-updatesd ]; then
-    # yum-updatesd should be doing the monitoring, but still check for apt and urpmi
-    echo >/dev/null
-elif [ -x /usr/bin/yum ]; then
-    YUMLIST=$(yum check-update|egrep -v '^( \*|Loading|Loaded)')
-    if [ "$(echo ${YUMLIST} |  awk '{print $1}')" != "0" ]; then
+    if [ "$(grep emit_via /etc/yum/yum-updatesd.conf | awk {'print $3}')" == "email" ]; then
+        doyum=0
+    fi
+fi
+if [ -x /usr/bin/yum -a "${doyum}" == 1 ]; then
+    YUMLIST=$(yum check-update|egrep -v '(^( \*|Loading|Loaded)|excluded)')
+    if [ "${YUMLIST}" != "" ]; then
         print_header
         if [ "${HEAD}" -eq 1 ]; then
             printf "The following updates were found via yum:\n\n" >> ${TMP}
