@@ -4,7 +4,7 @@ DESTDIR =
 BINDIR = /usr/bin
 
 CFLAGS = -ggdb -Wall -Wmissing-prototypes -Wmissing-declarations \
--Wpointer-arith -m486 -O2 -finline-functions -fkeep-inline-functions
+-Wpointer-arith -O2 -finline-functions -fkeep-inline-functions
 
 OBJ=find.o
 
