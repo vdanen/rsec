@@ -1,15 +1,15 @@
 #!/bin/bash
 #
-# Written by Vandoorselaere Yoann, <yoann@mandrakesoft.com>
+# originally based on msec from Mandriva
 #
 # $Id$
 
-if [[ -f /etc/security/rsec.conf ]]; then
-    . /etc/security/rsec.conf
-else
-    echo "/etc/security/rsec.conf doesn't exist."
+if [[ ! -f /etc/security/rsec.conf ]]; then
+    echo "Required configuration file/etc/security/rsec.conf does not exist!"
     exit 1
 fi
+
+. /etc/security/rsec.conf
 
 if [[ ${CHECK_SECURITY} == no ]]; then
     exit 0
@@ -142,7 +142,7 @@ if [[ ${CHECK_OPEN_PORT} == yes ]]; then
 fi
 
 ### rpm database
-if [[ ${RPM_CHECK} == yes ]]; then
+if [[ ${CHECK_RPM} == yes ]]; then
     if [[ -f ${RPM_QA_YESTERDAY} ]]; then
 	diff -u ${RPM_QA_YESTERDAY} ${RPM_QA_TODAY} > ${RPM_QA_DIFF}
 	if [ -s ${RPM_QA_DIFF} ]; then
@@ -154,6 +154,23 @@ if [[ ${RPM_CHECK} == yes ]]; then
 		printf "\t\t- No longer present package : ${file}\n"
 	    done >> ${TMP}
 	fi
+    fi
+fi
+
+### Changed rkhunter report
+if [[ ${CHECK_RKHUNTER} == yes ]]; then
+
+    if [[ -f ${RKHUNTER_YESTERDAY} ]]; then
+       diff -u ${RKHUNTER_YESTERDAY} ${RKHUNTER_TODAY} 1> ${RKHUNTER_DIFF}
+       if [ -s ${RKHUNTER_DIFF} ]; then
+           printf "\nSecurity Warning: There are modifications for rkhunter results :\n" >> ${TMP}
+           grep '^+' ${RKHUNTER_DIFF} | grep -vw "^+++ " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
+               printf "\t\t-  Added : ${file}\n"
+           done >> ${TMP}
+           grep '^-' ${RKHUNTER_DIFF} | grep -vw "^--- " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
+               printf "\t\t- Removed  : ${file}\n"
+           done >> ${TMP}
+        fi
     fi
 fi
 

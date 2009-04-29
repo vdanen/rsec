@@ -1,15 +1,15 @@
 #!/bin/bash
 #
-# Written by Vandoorselaere Yoann, <yoann@mandrakesoft.com>
+# originally based on msec from Mandriva
 #
 # $Id$
 
-if [[ -f /etc/security/rsec.conf ]]; then
-    . /etc/security/rsec.conf
-else
-    echo "/etc/security/rsec.conf don't exist."
+if [[ ! -f /etc/security/rsec.conf ]]; then
+    echo "Required configuration file/etc/security/rsec.conf does not exist!"
     exit 1
 fi
+
+. /etc/security/rsec.conf
 
 if [[ ${CHECK_SECURITY} != yes ]]; then
     exit 0
@@ -55,7 +55,7 @@ while IFS=: read username uid homedir; do
     if ! expr "$homedir" : "$FILTER"  > /dev/null; then
 	for f in ${list} ; do
 	    file="${homedir}/${f}"
-	    if [[ -f ${file} ]] ; then
+	    if [[ -e ${file} ]] ; then
 		printf "${uid} ${username} ${file} `ls -LldcGn ${file}`\n"
 	    fi
 	done
@@ -80,13 +80,15 @@ fi
 list=".bashrc .bash_profile .bash_login .bash_logout .cshrc .emacs .exrc \
 .forward .klogin .login .logout .profile .tcshrc .fvwmrc .inputrc .kshrc \
 .nexrc .screenrc .ssh .ssh/config .ssh/authorized_keys .ssh/environment \
-.ssh/known_hosts .ssh/rc .twmrc .xsession .xinitrc .Xdefaults"
+.ssh/known_hosts .ssh/rc .twmrc .xsession .xinitrc .Xdefaults \
+.gnupg .gnupg/secring.gpg .ssh/identity .ssh/id_dsa .ssh/id_rsa \
+.Xauthority .cvspass .subversion/auth .purple/accounts.xml .config "
 getent passwd | awk -F: '/^[^+-]/ { print $1 ":" $3 ":" $6 }' | \
 while IFS=: read username uid homedir; do
     if ! expr "$homedir" : "$FILTER"  > /dev/null; then
 	for f in ${list} ; do
 	    file="${homedir}/${f}"
-	    if [[ -f "${file}" ]] ; then
+	    if [[ -e "${file}" ]] ; then
 		res=`ls -LldcGn "${file}" | sed 's/ \{1,\}/:/g'`
 		printf "${uid}:${username}:${file}:${res}\n"
 	    fi
@@ -204,27 +206,30 @@ for file in $list ; do
         fi
 done > ${TMP}
 
-getent passwd | awk -F: '{print $1" "$6}' |
+### Passwd file check
+if [[ ${CHECK_SHOSTS} == yes ]]; then    
+    getent passwd | awk -F: '{print $1" "$6}' |
     while read username homedir; do
-	if ! expr "$homedir" : "$FILTER"  > /dev/null; then
-	    for file in .rhosts .shosts; do
-		if [[ -s ${homedir}/${file} ]] ; then
-		    awk '{
-			    if ($0 ~ /^\+@.*$/)
-				next;
-			    if ($0 ~ /^\+.*$/)
-				printf("\t\t- %s: %s\n", FILENAME, $0);
-		    }' ${homedir}/${file}
-		fi
-	    done >> ${TMP}
-	fi
+        if ! expr "$homedir" : "$FILTER"  > /dev/null; then
+            for file in .rhosts .shosts; do
+                if [[ -s ${homedir}/${file} ]] ; then
+                    awk '{
+                    if ($0 ~ /^\+@.*$/)
+                        next;
+                        if ($0 ~ /^\+.*$/)
+                            printf("\t\t- %s: %s\n", FILENAME, $0);
+                        }' ${homedir}/${file}
+                fi
+            done >> ${TMP}
+        fi
     done
-	
-if [[ -s ${TMP} ]]; then
-    printf "\nSecurity Warning: '+' character found in hosts trusting files,\n" >> ${SECURITY}
-    printf "\tthis probably mean that you trust certains users/domain\n" >> ${SECURITY}
-    printf "\tto connect on this host without proper authentication :\n" >> ${SECURITY}
-    cat ${TMP} >> ${SECURITY}
+
+    if [[ -s ${TMP} ]]; then
+        printf "\nSecurity Warning: '+' character found in hosts trusting files,\n" >> ${SECURITY}
+        printf "\tthis probably mean that you trust certains users/domain\n" >> ${SECURITY}
+        printf "\tto connect on this host without proper authentication :\n" >> ${SECURITY}
+        cat ${TMP} >> ${SECURITY}
+	fi
 fi
 
 ### executables should not be in the aliases file.
@@ -254,7 +259,7 @@ fi
 
 
 ### rkhunter checks
-if [[ ${RKHUNTER_CHECK} == yes ]]; then
+if [[ ${CHECK_RKHUNTER} == yes ]]; then
 
     if [[ -s ${RKHUNTER_TODAY} ]]; then
 	printf "\nrkhunter report shortlist:\n" >> ${SECURITY}

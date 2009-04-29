@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Writen by Vandoorselaere Yoann, <yoann@mandrakesoft.com>
+# originally based on msec from Mandriva
 #
 # $Id$
 
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then
-        ${logger} -- " ${1}"
+        ${logger} -t rsec -- " ${1}"
     fi
 }
 
@@ -28,13 +28,13 @@ LogPromisc() {
     echo "    A sniffer is probably running on your system." >> /var/log/security.log
 
 }
-    
-if [[ -f /etc/security/rsec.conf ]]; then
-    . /etc/security/rsec.conf
-else
-    echo "/etc/security/rsec.conf doesn't exist."
+
+if [[ ! -f /etc/security/rsec.conf ]]; then
+    echo "Required configuration file/etc/security/rsec.conf does not exist!"
     exit 1
 fi
+
+. /etc/security/rsec.conf
 
 if tail /var/log/security.log | grep -q "promiscuous"; then
     # Dont flood with warning.

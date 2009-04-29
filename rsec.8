@@ -51,15 +51,38 @@ inside a chroot, etc.).  Only one statement is permitted, multiple directories c
 be included in the statement, separated by a space.  If specifying more than one
 directory, they must be surrounded by quotes.
 .TP
-\fBRPM_CHECK=[yes|no]\fR
+\fBCHECK_RPM=[yes|no]\fR
 Enables rsec's checking for newly installed or removed RPM packages.
 .TP
 \fBCHECK_OPEN_PORT=[yes|no]\fR
 Enables rsec's checking for open and listening ports on your system.
 .TP
-\fBRKHUNTER_CHECK=[yes|no]\fR
+\fBCHECK_RKHUNTER=[yes|no]\fR
 Enables rsec's invocation of rkhunter to check the system for any signs of
 a rootkit being installed.
+.TP
+\fBCHECK_SHOSTS=[yes|no]\fR
+Enables rsec's checking for .shosts or .rhosts files that contain the '+' character
+which enables connections from remote machines without proper authentication
+.TP
+\fBCHECK_PERMS=[yes|no]\fR
+Enables rsec's checking for files with bad permissions; ie. files owned by
+one user but in another user's home directory, and so forth.
+.TP
+\fBCHECK_PASSWD=[yes|no]\fR
+Enables rsec's sanity checks on /etc/passwd; ie. ensuring that all accounts
+that should have passwords do have passwords.
+.TP
+\fBCHECK_SHADOW=[yes|no]\fR
+Enables rsec's sanity checks on /etc/shadow; ie. ensuring that all accounts
+that should have passwords do have passwords.  Note that if /etc/shadow does
+not exist (i.e. the system is using the tcb password scheme) than this check
+is not performed, regardless of this setting.
+.TP
+\fBCHECK_PROMISC=[yes|no]\fR
+Enables rsec's check on whether or not any ethernet cards are in promiscous
+mode.  While all of the other checks are done on a daily basis, this one
+check is done on an hourly basis.
 .TP
 \fBSYSLOG_WARN=[yes|no]\fR
 Enables rsec's logging to syslog.  Typically, rsec logs to the
@@ -85,25 +108,6 @@ anything.
 By default, if configured, rsec will email reports to the system's root
 user.  With this setting, you can control who receives the reports.
 .TP
-\fBCHECK_PERMS=[yes|no]\fR
-Enables rsec's checking for files with bad permissions; ie. files owned by
-one user but in another user's home directory, and so forth.
-.TP
-\fBCHECK_PASSWD=[yes|no]\fR
-Enables rsec's sanity checks on /etc/passwd; ie. ensuring that all accounts
-that should have passwords do have passwords.
-.TP
-\fBCHECK_SHADOW=[yes|no]\fR
-Enables rsec's sanity checks on /etc/shadow; ie. ensuring that all accounts
-that should have passwords do have passwords.  Note that if /etc/shadow does
-not exist (i.e. the system is using the tcb password scheme) than this check
-is not performed, regardless of this setting.
-.TP
-\fBCHECK_PROMISC=[yes|no]\fR
-Enables rsec's check on whether or not any ethernet cards are in promiscous
-mode.  While all of the other checks are done on a daily basis, this one
-check is done on an hourly basis.
-.TP
 \fBEXCLUDE_REGEXP=[regexp]\fR
 This allows you to exclude certain directories and files from the daily reports
 that rsec executes.  For instance, you could use the regexp \fI"^/tmp"\fR to exclude
@@ -118,7 +122,7 @@ forth.  This option is useful to exclude shared home directories.  To add more e
 this list, add home directories separated by a space.
 
 .SH AUTHOR
-rsec is based on the Mandrivalinux tool \fBmsec\fR originally written by Yoann
+rsec is based on the Mandriva tool \fBmsec\fR originally written by Yoann
 Vandoorselaere and then re-written by Frederic Lepied <flepied@mandriva.com>.
 rsec was forked from msec, and is currently maintained, by Vincent Danen
 <vdanen@annvix.org>.

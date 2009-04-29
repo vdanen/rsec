@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# originally based on msec from Mandrakesoft
+# originally based on msec from Mandriva
 #
 # $Id$
 
@@ -23,7 +23,7 @@ echo -n $$ > $LCK
 trap cleanup 0
 
 if [[ ! -f /etc/security/rsec.conf ]]; then
-    echo "Can't access /etc/security/rsec.conf."
+    echo "Required configuration file/etc/security/rsec.conf does not exist!"
     exit 1
 fi
 
@@ -69,13 +69,14 @@ RPM_QA_DIFF="/var/log/security/rpm-qa.diff"
 export RKHUNTER_TODAY="/var/log/security/rkhunter.today"
 export RKHUNTER_TODAY_SUMM="/var/log/security/rkhunter.summ"
 RKHUNTER_YESTERDAY="/var/log/security/rkhunter.yesterday"
+RKHUNTER_DIFF="/var/log/security/rkhunter.diff"
 export EXCLUDE_REGEXP
 
 # Modified filters coming from debian security scripts.
 
 # rootfs is not listed among excluded types, because 
 # / is mounted twice, and filtering it would mess with excluded dir list
-TYPE_FILTER='(devpts|sysfs|usbfs|tmpfs|binfmt_misc|auto|proc|msdos|fat|vfat|iso9660|ncpfs|smbfs|hfs|nfs|afs|coda|rpc_pipefs)'
+TYPE_FILTER='(devpts|sysfs|usbfs|tmpfs|binfmt_misc|rpc_pipefs|securityfs|auto|proc|msdos|fat|vfat|iso9660|ncpfs|smbfs|hfs|nfs|afs|coda|cifs)'
 MOUNTPOINT_FILTER='^\/(mnt|media)'
 DIR=`awk '$3 !~ /'${TYPE_FILTER}'/ && $2 !~ /'${MOUNTPOINT_FILTER}'/ \
 	{print $2}' /proc/mounts | uniq`
@@ -124,10 +125,15 @@ if [[ -f ${RKHUNTER_TODAY} ]]; then
     mv -f ${RKHUNTER_TODAY} ${RKHUNTER_YESTERDAY}
 fi
 
-netstat -pvlA inet 2> /dev/null > ${OPEN_PORT_TODAY};
+netstat -pvlA inet,inet6 2> /dev/null > ${OPEN_PORT_TODAY};
+
+ionice -c3 -p $$
 
 # Hard disk related file check; the less priority the better...
-nice --adjustment=+19 /usr/bin/rsec_find ${DIR}
+# only run it when really required
+if [[ ${CHECK_SUID_SHA1} == yes || ${CHECK_SUID_ROOT} == yes || ${CHECK_SGID} == yes || ${CHECK_WRITABLE} == yes || ${CHECK_UNOWNED} == yes  ]]; then
+    nice --adjustment=+19 /usr/bin/rsec_find ${DIR}
+fi
 
 if [[ -f ${SUID_ROOT_TODAY} ]]; then
     sort < ${SUID_ROOT_TODAY} > ${SUID_ROOT_TODAY}.tmp
@@ -170,12 +176,12 @@ fi
 
 ### rpm database check
 
-if [[ ${RPM_CHECK} == yes ]]; then
+if [[ ${CHECK_RPM} == yes ]]; then
     rpm -qa --qf "%{NAME}-%{VERSION}-%{RELEASE}\t%{INSTALLTIME}\n" | sort > ${RPM_QA_TODAY}
 fi
 
 ### rkhunter checks
-if [[ ${RKHUNTER_CHECK} == yes ]]; then
+if [[ ${CHECK_RKHUNTER} == yes ]]; then
     if [ -x /usr/sbin/rkhunter ]; then
 	/usr/sbin/rkhunter --cronjob --summary --disable suspscan,filesystem,properties > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
 	# the log may be in different locations, so check first
@@ -192,7 +198,7 @@ fi
 Syslog() {
     if [[ ${SYSLOG_WARN} == yes ]]; then
     while read line; do
-        ${logger} -- " ${line}"
+        ${logger} -t rsec -- " ${line}"
     done < ${1}
     fi
 }
@@ -228,7 +234,8 @@ Nothing has changed since the last run.
 EOF
                 fi
             else
-		cat ${text} | /bin/mail -s "${subject}" "${MAIL_USER}"
+        # remove non-printable characters
+		 cat ${text} | sed -e "s,[[:cntrl:]],,g" | LC_CTYPE=$LC_CTYPE /bin/mail -s "${subject}" "${MAIL_USER}"
 	    fi
 	fi
     fi
