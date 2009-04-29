@@ -12,10 +12,10 @@ Syslog() {
 
 Ttylog() {
     if [[ ${TTY_WARN} == yes ]]; then
-	w | grep -v "load\|TTY" | grep '^root' | awk '{print $2}' | while read line; do
-            echo -e "${1}" > /dev/$line
-        done
-    fi
+        w | grep -v "load\|TTY" | grep '^root' | awk '{print $2}' | while read line; do
+        echo -e "${1}" > /dev/$line
+    done
+fi
 }
 
 LogPromisc() {

@@ -8,12 +8,12 @@
 
 header="rsec - package updates monitor: @pkg_version@ - \$Id$\n\n"
 
-if [[ -f /etc/security/rsec.conf ]]; then
-    . /etc/security/rsec.conf
-else
-    echo "/etc/security/rsec.conf doesn't exist."
+if [[ ! -f /etc/security/rsec.conf ]]; then
+    echo "Required configuration file/etc/security/rsec.conf does not exist!"
     exit 1
 fi
+
+. /etc/security/rsec.conf
 
 TMP=`mktemp /tmp/secure.XXXXXX`
 HOST=`hostname`
@@ -59,7 +59,7 @@ if [ -x /usr/bin/apt-get ]; then
         printf "${APTLIST}\n\n" >> ${TMP}
     fi
 fi
-        
+
 if [ -x /usr/sbin/urpmi ]; then
     urpmi.update -a >/dev/null 2>&1
 
@@ -83,5 +83,5 @@ if [ -s ${TMP} ]; then
 fi
 
 if [ -f ${TMP} ]; then
-	rm -f ${TMP}
+    rm -f ${TMP}
 fi

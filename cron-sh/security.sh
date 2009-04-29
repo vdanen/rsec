@@ -7,14 +7,14 @@
 LCK=/var/run/rsec.pid
 
 function cleanup() {
-    rm -f $LCK
+rm -f $LCK
 }
 
 if [ -f $LCK ]; then
     if [ -d /proc/`cat $LCK` ]; then
-    	exit 0
+        exit 0
     else
-    	rm -f $LCK
+        rm -f $LCK
     fi
 fi
 
@@ -79,10 +79,10 @@ export EXCLUDE_REGEXP
 TYPE_FILTER='(devpts|sysfs|usbfs|tmpfs|binfmt_misc|rpc_pipefs|securityfs|auto|proc|msdos|fat|vfat|iso9660|ncpfs|smbfs|hfs|nfs|afs|coda|cifs)'
 MOUNTPOINT_FILTER='^\/(mnt|media)'
 DIR=`awk '$3 !~ /'${TYPE_FILTER}'/ && $2 !~ /'${MOUNTPOINT_FILTER}'/ \
-	{print $2}' /proc/mounts | uniq`
+    {print $2}' /proc/mounts | uniq`
 PRINT="%h/%f\n"
 EXCLUDEDIR=`awk '$3 ~ /'${TYPE_FILTER}'/ || $2 ~ /'${MOUNTPOINT_FILTER}'/ \
-	{print $2}' /proc/mounts | uniq`
+    {print $2}' /proc/mounts | uniq`
 export EXCLUDEDIR
 
 if [[ ! -d /var/log/security ]]; then
@@ -170,7 +170,7 @@ fi
 
 if [[ -f ${SUID_ROOT_TODAY} ]]; then
     while read line; do 
-	sha1sum ${line}
+        sha1sum ${line}
     done < ${SUID_ROOT_TODAY} > ${SUID_SHA1_TODAY}
 fi
 
@@ -183,13 +183,13 @@ fi
 ### rkhunter checks
 if [[ ${CHECK_RKHUNTER} == yes ]]; then
     if [ -x /usr/sbin/rkhunter ]; then
-	/usr/sbin/rkhunter --cronjob --summary --disable suspscan,filesystem,properties > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
-	# the log may be in different locations, so check first
-	if [ -f /var/log/security/rkhunter.log ]; then
-	    cp -f /var/log/security/rkhunter.log ${RKHUNTER_TODAY}
-	elif [ -f /var/log/rkhunter.log ]; then
-	    cp -f /var/log/rkhunter.log ${RKHUNTER_TODAY}
-	fi
+        /usr/sbin/rkhunter --cronjob --summary --disable suspscan,filesystem,properties > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
+        # the log may be in different locations, so check first
+        if [ -f /var/log/security/rkhunter.log ]; then
+            cp -f /var/log/security/rkhunter.log ${RKHUNTER_TODAY}
+        elif [ -f /var/log/rkhunter.log ]; then
+            cp -f /var/log/rkhunter.log ${RKHUNTER_TODAY}
+        fi
     fi
 fi
 
@@ -215,29 +215,29 @@ Maillog() {
     subject=${1}
     text=${2}
     SOMETHING_TO_SEND=
-    
+
     if [[ ${MAIL_WARN} == yes ]]; then
-	if [[ -z ${MAIL_USER} ]]; then 
-	    MAIL_USER="root"
-	fi
-	if [[ -x /bin/mail ]]; then
-	    for f in ${text}; do
-		if [[ -s $f ]]; then
-		    SOMETHING_TO_SEND=1
-		    break
-		fi
-	    done
-	    if [[ -z ${SOMETHING_TO_SEND} ]]; then
-		if [[ ${MAIL_EMPTY_CONTENT} != no ]]; then
-		    /bin/mail -s "${subject}" "${MAIL_USER}" <<EOF
+        if [[ -z ${MAIL_USER} ]]; then 
+            MAIL_USER="root"
+        fi
+        if [[ -x /bin/mail ]]; then
+            for f in ${text}; do
+                if [[ -s $f ]]; then
+                    SOMETHING_TO_SEND=1
+                    break
+                fi
+            done
+            if [[ -z ${SOMETHING_TO_SEND} ]]; then
+                if [[ ${MAIL_EMPTY_CONTENT} != no ]]; then
+                    /bin/mail -s "${subject}" "${MAIL_USER}" <<EOF
 Nothing has changed since the last run.
 EOF
                 fi
             else
-        # remove non-printable characters
-		 cat ${text} | sed -e "s,[[:cntrl:]],,g" | LC_CTYPE=$LC_CTYPE /bin/mail -s "${subject}" "${MAIL_USER}"
-	    fi
-	fi
+                # remove non-printable characters
+                cat ${text} | sed -e "s,[[:cntrl:]],,g" | LC_CTYPE=$LC_CTYPE /bin/mail -s "${subject}" "${MAIL_USER}"
+            fi
+        fi
     fi
 }
 
