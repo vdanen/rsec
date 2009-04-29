@@ -235,7 +235,7 @@ EOF
                 fi
             else
                 # remove non-printable characters
-                cat ${text} | sed -e "s,[[:cntrl:]],,g" | LC_CTYPE=$LC_CTYPE /bin/mail -s "${subject}" "${MAIL_USER}"
+                cat ${text} | LC_CTYPE=$LC_CTYPE /bin/mail -s "${subject}" "${MAIL_USER}"
             fi
         fi
     fi
