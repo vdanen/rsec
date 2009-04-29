@@ -150,16 +150,20 @@ fi
 ### Changed rkhunter report
 if [[ ${CHECK_RKHUNTER} == yes ]]; then
     if [[ -f ${RKHUNTER_YESTERDAY} ]]; then
-       diff -u ${RKHUNTER_YESTERDAY} ${RKHUNTER_TODAY} 1> ${RKHUNTER_DIFF}
-       if [ -s ${RKHUNTER_DIFF} ]; then
-           printf "\nSecurity Warning: There are modifications for rkhunter results :\n" >> ${TMP}
-           grep '^+' ${RKHUNTER_DIFF} | grep -vw "^+++ " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
-               printf "\t\t-  Added : ${file}\n"
-           done >> ${TMP}
-           grep '^-' ${RKHUNTER_DIFF} | grep -vw "^--- " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
-               printf "\t\t- Removed  : ${file}\n"
-           done >> ${TMP}
+        rktempdir=$(mktemp -d /tmp/rkhunter_check.XXXXXX)
+        cat ${RKHUNTER_YESTERDAY} | egrep -v '(Info: (End|Start) date|system checks took)' | sed 's/^\[\([0-9]\).*\]//' >${rktempdir}/$(basename ${RKHUNTER_YESTERDAY})
+        cat ${RKHUNTER_TODAY} | egrep -v '(Info: (End|Start) date|system checks took)' | sed 's/^\[\([0-9]\).*\]//' >${rktempdir}/$(basename ${RKHUNTER_TODAY})
+        diff -u ${rktempdir}/$(basename ${RKHUNTER_YESTERDAY}) ${rktempdir}/$(basename ${RKHUNTER_TODAY}) 1> ${RKHUNTER_DIFF}
+        if [ -s ${RKHUNTER_DIFF} ]; then
+            printf "\nSecurity Warning: There are modifications for rkhunter results :\n" >> ${TMP}
+            grep '^+' ${RKHUNTER_DIFF} | grep -vw "^+++ " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
+                printf "\t\t-  Added : ${file}\n"
+            done >> ${TMP}
+            grep '^-' ${RKHUNTER_DIFF} | grep -vw "^--- " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
+                printf "\t\t- Removed  : ${file}\n"
+            done >> ${TMP}
         fi
+        rm -rf ${rktempdir}
     fi
 fi
 
