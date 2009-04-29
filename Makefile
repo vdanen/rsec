@@ -1,4 +1,4 @@
-VERSION = 0.70.3
+VERSION = 0.71
 PACKAGE = rsec
 
 SUBDIRS = cron-sh src
