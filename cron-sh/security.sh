@@ -4,6 +4,13 @@
 #
 # $Id$
 
+for source in /etc/sysconfig/i18n /etc/profile.d/lang.sh /etc/profile.d/10lang.sh
+do
+    if [ -f ${source} ]; then
+        . ${source}
+    fi
+done
+
 LCK=/var/run/rsec.pid
 
 function cleanup() {
@@ -125,7 +132,9 @@ if [[ -f ${RKHUNTER_TODAY} ]]; then
     mv -f ${RKHUNTER_TODAY} ${RKHUNTER_YESTERDAY}
 fi
 
-netstat -pvlA inet,inet6 2> /dev/null > ${OPEN_PORT_TODAY};
+if [[ ${CHECK_OPEN_PORT} == yes ]]; then
+    netstat -pvlA inet,inet6 2> /dev/null > ${OPEN_PORT_TODAY};
+fi
 
 ionice -c3 -p $$
 
