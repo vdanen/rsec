@@ -136,7 +136,8 @@ if [[ ${CHECK_OPEN_PORT} == yes ]]; then
     netstat -pvlA inet,inet6 2> /dev/null > ${OPEN_PORT_TODAY};
 fi
 
-ionice -c3 -p $$
+# if using '-c3', get iopri_set operation not permitted errors
+ionice -c2 -n7 -p $$
 
 # Hard disk related file check; the less priority the better...
 # only run it when really required
