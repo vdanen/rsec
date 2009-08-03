@@ -193,7 +193,7 @@ fi
 ### rkhunter checks
 if [[ ${CHECK_RKHUNTER} == yes ]]; then
     if [ -x /usr/sbin/rkhunter ]; then
-        /usr/sbin/rkhunter --cronjob --summary --disable suspscan,filesystem,properties > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
+        /usr/sbin/rkhunter --cronjob --summary --disable suspscan,filesystem,properties,deleted_files > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
         # the log may be in different locations, so check first
         if [ -f /var/log/security/rkhunter.log ]; then
             cp -f /var/log/security/rkhunter.log ${RKHUNTER_TODAY}
