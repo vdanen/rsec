@@ -61,6 +61,9 @@ SUID_SHA1_DIFF="/var/log/security/suid_sha1.diff"
 export OPEN_PORT_TODAY="/var/log/security/open_port.today"
 OPEN_PORT_YESTERDAY="/var/log/security/open_port.yesterday"
 OPEN_PORT_DIFF="/var/log/security/open_port.diff"
+export FIREWALL_TODAY="/var/log/security/firewall.today"
+FIREWALL_YESTERDAY="/var/log/security/firewall.yesterday"
+FIREWALL_DIFF="/var/log/security/firewall.diff"
 export WRITABLE_TODAY="/var/log/security/writable.today"
 WRITABLE_YESTERDAY="/var/log/security/writable.yesterday"
 WRITABLE_DIFF="/var/log/security/writable.diff"
@@ -120,6 +123,10 @@ if [[ -f ${OPEN_PORT_TODAY} ]]; then
     mv -f ${OPEN_PORT_TODAY} ${OPEN_PORT_YESTERDAY}
 fi
 
+if [[ -f ${FIREWALL_TODAY} ]]; then
+    mv -f ${FIREWALL_TODAY} ${FIREWALL_YESTERDAY}
+fi
+
 if [[ -f ${SUID_SHA1_TODAY} ]]; then
     mv ${SUID_SHA1_TODAY} ${SUID_SHA1_YESTERDAY};
 fi
@@ -134,6 +141,10 @@ fi
 
 if [[ ${CHECK_OPEN_PORT} == yes ]]; then
     netstat -pvlA inet,inet6 2> /dev/null > ${OPEN_PORT_TODAY};
+fi
+
+if [[ ${CHECK_FIREWALL} == yes ]]; then
+    iptables -L 2>/dev/null >${FIREWALL_TODAY}
 fi
 
 # if using '-c3', get iopri_set operation not permitted errors

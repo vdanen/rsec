@@ -131,6 +131,22 @@ if [[ ${CHECK_OPEN_PORT} == yes ]]; then
     fi
 fi
 
+### changed firewall
+if [[ ${CHECK_FIREWALL} == yes ]]; then
+    if [[ -f ${FIREWALL_YESTERDAY} ]]; then
+        diff -u ${FIREWALL_YESTERDAY} ${FIREWALL_TODAY} 1> ${FIREWALL_DIFF}
+        if [ -s ${FIREWALL_DIFF} ]; then
+            printf "\nSecurity Warning: There are modifications to the firewall configuration on your machine :\n" >> ${TMP}
+            grep '^+' ${FIREWALL_DIFF} | grep -vw "^+++ " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
+                printf "\t\t-      New rules   : ${file}\n"
+            done >> ${TMP}
+            grep '^-' ${FIREWALL_DIFF} | grep -vw "^--- " | sed 's|^.||'|sed -e 's/%/%%/g' | while read file; do
+                printf "\t\t- Removed rules    : ${file}\n"
+            done >> ${TMP}
+        fi
+    fi
+fi
+
 ### rpm database
 if [[ ${CHECK_RPM} == yes ]]; then
     if [[ -f ${RPM_QA_YESTERDAY} ]]; then
