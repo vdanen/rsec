@@ -148,7 +148,7 @@ if [[ ${CHECK_FIREWALL} == yes ]]; then
 fi
 
 # if using '-c3', get iopri_set operation not permitted errors
-ionice -c2 -n7 -p $$
+ionice -c2 -n7 -p $$ 2>/dev/null
 
 # Hard disk related file check; the less priority the better...
 # only run it when really required
