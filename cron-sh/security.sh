@@ -203,8 +203,14 @@ fi
 
 ### rkhunter checks
 if [[ ${CHECK_RKHUNTER} == yes ]]; then
+    rkbinary=""
     if [ -x /usr/sbin/rkhunter ]; then
-        /usr/sbin/rkhunter --cronjob --summary --disable suspscan,filesystem,properties,deleted_files > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
+        rkbinary="/usr/sbin/rkhunter"
+    elif [ -x /usr/bin/rkhunter ]; then
+        rkbinary="/usr/bin/rkhunter"
+    fi
+    if [ "${rkbinary}" != "" ]; then
+        ${rkbinary} --cronjob --summary --disable suspscan,filesystem,properties,deleted_files,apps > ${RKHUNTER_TODAY_SUMM} 2>/dev/null
         # the log may be in different locations, so check first
         if [ -f /var/log/security/rkhunter.log ]; then
             cp -f /var/log/security/rkhunter.log ${RKHUNTER_TODAY}
