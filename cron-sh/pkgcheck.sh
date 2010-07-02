@@ -38,7 +38,7 @@ if [ -x /usr/sbin/yum-updatesd ]; then
     fi
 fi
 if [ -x /usr/bin/yum -a "${doyum}" == 1 ]; then
-    YUMLIST=$(yum check-update|egrep -v '(^( \*|Loading|Loaded)|excluded|global exclude|Finished|Excluding Packages)')
+    YUMLIST=$(yum check-update|egrep -v '(^( \*|Loading|Loaded)|excluded|global exclude|Finished|Excluding Packages|Determining fastest mirrors)')
     if [ "${YUMLIST}" != "" ]; then
         print_header
         if [ "${HEAD}" -eq 1 ]; then
