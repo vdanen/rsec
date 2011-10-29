@@ -1,0 +1,361 @@
+2010-07-02 16:17  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.72.4
+
+2010-07-02 16:17  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh:
+	  exclude output from fastestmirror plugin
+
+2010-06-05 15:33  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.72.3
+
+2010-06-05 15:32  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh:
+	  filter out notices about excluded packages
+
+2009-12-30 18:58  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.72.2
+
+2009-12-30 18:57  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  also check for rkhunter in /usr/bin, and disable 'apps' test
+	  since on EL we usually backport so these are false positives
+
+2009-08-19 15:52  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.72.1
+
+2009-08-04 15:16  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  silence ionice 'permission denied' errors
+
+2009-08-03 19:09  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.72
+
+2009-08-03 18:03  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/diff_check.sh, cron-sh/security.sh, rsec.8, rsec.conf:
+	  add support for checking changes to iptables rules
+
+2009-08-03 17:51  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  don't run the rkhunter deleted_files check; /dev/zero shows up a
+	  lot when its enabled
+
+2009-07-31 17:26  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  adjust ionice call from -c3 to -c2 -n7 in order to prevent
+	  'iopri_set: Operation not permitted' errors
+
+2009-07-31 13:27  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh:
+	  handle yum output when entries are in the global exclude list
+
+2009-07-29 13:59  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  only check for open ports when CHECK_OPEN_PORT is set; source
+	  locale-related files if found
+
+2009-04-29 19:44  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.71
+
+2009-04-29 19:42  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  remove the sed call when mailing as it strips tabs making our
+	  mails look less nice
+
+2009-04-29 19:27  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/diff_check.sh:
+	  rkhunter diff check needs to exclude timestamps and time the
+	  checks took to be useful
+
+2009-04-29 18:09  Vincent Danen <vdanen at annvix.org>
+
+	* rsec.conf:
+	  enable CHECK_SHADOW by default
+
+2009-04-29 18:03  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/diff_check.sh, cron-sh/pkgcheck.sh,
+	  cron-sh/promisc_check.sh, cron-sh/security.sh,
+	  cron-sh/security_check.sh:
+	  tabs to spaces and other cleanups
+
+2009-04-29 17:43  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/diff_check.sh, cron-sh/promisc_check.sh,
+	  cron-sh/security.sh, cron-sh/security_check.sh, rsec.8,
+	  rsec.conf:
+	  updated credits, s/RPM_CHECK/CHECK_RPM/,
+	  s/RKHUNTER_CHECK/CHECK_RKHUNTER/, do a diff check on rkhunter
+	  report output, add CHECK_SHOSTS, added more files to the list of
+	  files in ~/ to check, identify syslog messages as coming from
+	  rsec, remove non-printable characters from mails, only run
+	  rsec_find if appropriate checks are defined, look at open ipv6
+	  ports
+
+2009-04-28 13:01  Vincent Danen <vdanen at annvix.org>
+
+	* src/promisc_check/Makefile, src/promisc_check/promisc_check.c:
+	  fix optimizations and update copyright information
+
+2009-04-28 12:59  Vincent Danen <vdanen at annvix.org>
+
+	* src/rsec_find/Makefile:
+	  fix optimizations
+
+2009-04-28 12:58  Vincent Danen <vdanen at annvix.org>
+
+	* src/rsec_find/find.c:
+	  exclude pipes and sockets from world-writable report; update
+	  copyright information
+
+2009-04-19 14:41  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.70.3
+
+2009-04-19 14:40  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh, rsec.conf:
+	  disable rkhunter's suspscan check when running from rsec and note
+	  what tests are disabled in the config
+
+2009-02-27 01:05  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.70.2
+
+2009-02-27 01:04  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/promisc_check.sh, cron-sh/security.sh:
+	  /bin/logger is /usr/bin/logger on RHEL5 so check for both and if
+	  neither found, disable syslog notifications
+
+2009-02-27 01:04  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh:
+	  run the package check if yum-updatesd doesn't send emails
+
+2009-02-26 20:45  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/apt_cleancache.sh:
+	  only call apt-get if it exists
+
+2009-02-26 20:44  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh:
+	  add support for yum
+
+2008-07-24 20:22  Vincent Danen <vdanen at annvix.org>
+
+	* .:
+	  ignore ChangeLog
+
+2008-05-06 16:03  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.70.1
+
+2008-05-06 16:03  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  look for rkhunter.log in both /var/log/security and /var/log
+
+2008-05-06 16:03  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh:
+	  properly handle urpmi media with spaces in the names
+
+2008-05-06 14:42  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.70
+
+2008-05-06 14:40  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/diff_check.sh, cron-sh/security.sh, rsec.8, rsec.conf:
+	  use sha1sum rather than md5sum
+
+2008-05-06 14:37  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile, cron-sh/Makefile, src/promisc_check/Makefile,
+	  src/rsec_find/Makefile:
+	  more Makefile changes so can use %makeinstall_std without
+	  installing anything manually in the spec
+
+2008-05-06 14:17  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile, cron-sh/Makefile, src/promisc_check/Makefile,
+	  src/rsec_find/Makefile:
+	  updated Makefiles
+
+2008-05-06 14:15  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh:
+	  tidy the output regarding apt vs urpmi
+
+2008-05-06 14:14  Vincent Danen <vdanen at annvix.org>
+
+	* rsec.8, rsec.conf:
+	  remove references to RSBAC
+
+2008-04-10 14:43  Vincent Danen <vdanen at annvix.org>
+
+	* src/rsec_find/Makefile:
+	  fix largefile support
+
+2007-12-29 18:28  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.69.1
+
+2007-12-29 18:28  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  redirect rkhunter stderr to /dev/null
+
+2007-12-09 23:47  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.69
+
+2007-12-09 23:32  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  fix rkhunter commands for new rkhunter (1.3.0)
+
+2007-12-02 04:32  Vincent Danen <vdanen at annvix.org>
+
+	* ChangeLog, Makefile:
+	  generate the changelog from svn
+
+2007-12-02 04:30  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  - 0.68
+
+2007-12-02 04:21  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security.sh:
+	  use /proc/mounts instead of mount output for filtering
+	  filesystems, largely due to autofs v5 (fixes mandriva bug #27284,
+	  patch by guillomovitch) with extra filtering on rpc_pipefs and
+	  /media
+
+2007-12-02 04:11  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/promisc_check.sh, cron-sh/security.sh:
+	  use '--' before the message to logger
+
+2007-02-04 02:21  Vincent Danen <vdanen at annvix.org>
+
+	* Makefile:
+	  0.67
+
+2007-02-04 02:19  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/apt_cleancache.sh:
+	  - add a cronjob to clean apt's cache
+
+2007-02-04 02:19  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/Makefile:
+	  - fix the install path
+
+2007-02-04 02:14  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/pkgcheck.sh, cron-sh/urpmicheck.sh:
+	  - rename urpmicheck.sh to pkgcheck.sh
+
+2006-07-12 17:08  Vincent Danen <vdanen at annvix.org>
+
+	* ChangeLog, Makefile:
+	  0.66
+
+2006-07-12 17:06  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/promisc_check.sh, cron-sh/security.sh:
+	  use /bin/logger rather than /usr/bin/logger and put a space
+	  before each entry or logger freaks out
+
+2006-07-08 18:42  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/diff_check.sh, cron-sh/promisc_check.sh,
+	  cron-sh/security.sh, cron-sh/security_check.sh,
+	  cron-sh/urpmicheck.sh, rsec.8:
+	  propset and fix stupid typeo in urpmicheck.sh
+
+2006-07-08 18:35  Vincent Danen <vdanen at annvix.org>
+
+	* ChangeLog, Makefile:
+	  0.65
+
+2006-07-08 18:34  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/urpmicheck.sh:
+	  urpmicheck.sh: also check update/check apt if it's available
+
+2006-07-08 18:16  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security_check.sh, rsec.8, rsec.conf:
+	  - don't check /etc/shadow if it doesn't exist
+	  - turn off CHECK_SHADOW by default since we use tcb instead
+
+2006-05-04 18:24  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/promisc_check.sh, cron-sh/security.sh:
+	  s/initlog/logger/
+
+2006-03-13 17:42  Vincent Danen <vdanen at annvix.org>
+
+	* ChangeLog, Makefile:
+	  0.63
+
+2006-03-13 17:42  Vincent Danen <vdanen at annvix.org>
+
+	* rsec.8, rsec.conf:
+	  document EXCLUDEDIR, add it, and add some defaults to
+	  EXCLUDE_REGEXP as well
+
+2006-03-13 16:51  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security_check.sh:
+	  don't report that unowned group/user files are owned by nobody
+	  since we no longer chown them
+
+2006-01-15 23:44  Vincent Danen <vdanen at annvix.org>
+
+	* ChangeLog, Makefile, rsec.8, rsec.spec:
+	  0.62 and drop the spec file
+
+2006-01-15 23:25  Vincent Danen <vdanen at annvix.org>
+
+	* cron-sh/security_check.sh:
+	  don't chown/chgrp files, just report
+
+2005-10-29 23:25  Vincent Danen <vdanen at annvix.org>
+
+	* .:
+	  reorganization
+
