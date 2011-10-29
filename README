@@ -1,4 +1,6 @@
 rsec - Annvix security reporting tool
+-------------------------------------
+
 
 rsec is a fork of the old msec tool written for Mandriva Linux.  It was
 forked from msec on March 10, 2004 for the Annvix operating system
