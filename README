@@ -6,5 +6,5 @@ forked from msec on March 10, 2004 for the Annvix operating system
 reporting tool that didn't do all of the behind-your-back changes that msec
 did.  rsec only reports, it never configures or changes anything.
 
-Written and maintained by Vincent Danen <vdanen@annvix.org> and
-licensed under the GPLv2.  See AUTHORS for the original msec authors.
+Written and maintained by Vincent Danen and licensed under the GPLv2.  See
+AUTHORS for the original msec authors.
