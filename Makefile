@@ -22,7 +22,6 @@ clean:
 	rm -f src/promisc_check/promisc_check
 	rm -f src/rsec_find/rsec_find
 	rm -f *.bz2
-	rm -f ChangeLog
 	rm -rf $(PACKAGE)-$(VERSION)
 
 promisc_check: 
@@ -50,7 +49,7 @@ install:
 	cd src/promisc_check && make install
 	cd src/rsec_find && make install
 
-dist: clean changelog
+dist: clean
 	mkdir -p $(PACKAGE)-$(VERSION)
 	for file in $(FILES); do \
 	cp -a $$file $(PACKAGE)-$(VERSION)/ ; \
@@ -59,7 +58,3 @@ dist: clean changelog
 	find $(PACKAGE)-$(VERSION) -type d -name .svn | xargs rm -rf 
 	tar cfj $(PACKAGE)-$(VERSION).tar.bz2 $(PACKAGE)-$(VERSION)
 	rm -rf $(PACKAGE)-$(VERSION)
-
-changelog:
-	svn update
-	svn2cl --authors=../../common/trunk/username.xml
