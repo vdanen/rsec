@@ -1,3 +1,9 @@
+2011-10-31
+* fix Makefile, no longer need to create the changelog
+
+2011-10-29
+* move to git
+
 2010-07-02 16:17  Vincent Danen <vdanen at annvix.org>
 
 	* Makefile:
